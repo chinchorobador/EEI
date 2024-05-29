@@ -1,0 +1,3 @@
+[submodule "eei-k8s"]
+	path = eei-k8s
+	url = https://gitlab.siu.edu.ar/devops/eei-k8s.git
