@@ -1,0 +1,7 @@
+resources:
+  - ../../../../../eei-k8s/base-siu/kolla/jobs/init
+
+components:
+  - ../../../apps/kolla/config
+  - ../../../apps/kolla/secrets
+  - ../../../common

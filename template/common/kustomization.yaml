@@ -1,0 +1,6 @@
+kind: Component
+
+components:
+  - ingress
+  - namespace
+  - pvc

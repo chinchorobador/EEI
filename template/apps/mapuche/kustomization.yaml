@@ -1,0 +1,7 @@
+resources:
+  - ../../../../eei-k8s/base-siu/mapuche
+
+components:
+  - config
+  - secrets
+  - ../../common

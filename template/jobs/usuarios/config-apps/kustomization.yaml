@@ -1,0 +1,17 @@
+resources:
+  - ../../../../../eei-k8s/base-siu/usuarios/jobs/config-apps
+
+components:
+  - ../../../../../eei-k8s/base-siu/diaguita/config-usuarios
+  - ../../../../../eei-k8s/base-siu/guarani/autogestion/config-usuarios
+  - ../../../../../eei-k8s/base-siu/guarani/gestion/config-usuarios
+  - ../../../../../eei-k8s/base-siu/guarani/preinscripcion/config-usuarios
+  - ../../../../../eei-k8s/base-siu/huarpe/config-usuarios
+  - ../../../../../eei-k8s/base-siu/kolla/config-usuarios
+  - ../../../../../eei-k8s/base-siu/mapuche/config-usuarios
+  - ../../../../../eei-k8s/base-siu/pilaga/config-usuarios
+  - ../../../../../eei-k8s/base-siu/sudocu/config-usuarios
+  - ../../../apps/usuarios/config
+  - ../../../apps/usuarios/secrets
+  - aplicaciones
+  - ../../../common

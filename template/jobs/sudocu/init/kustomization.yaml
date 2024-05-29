@@ -1,0 +1,7 @@
+resources:
+  - ../../../../../eei-k8s/base-siu/sudocu/jobs/init
+
+components:
+  - ../../../apps/sudocu/config
+  - ../../../apps/sudocu/secrets
+  - ../../../common

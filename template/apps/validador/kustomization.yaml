@@ -1,0 +1,5 @@
+resources:
+  - ../../../../eei-k8s/base-siu/validador
+
+components:
+  - ../../common

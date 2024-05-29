@@ -1,0 +1,7 @@
+resources:
+  - ../../../../eei-k8s/base-siu/pilaga
+
+components:
+  - config
+  - secrets
+  - ../../common

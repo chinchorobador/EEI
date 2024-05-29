@@ -1,0 +1,12 @@
+resources:
+  - ../../../../eei-k8s/base-dev/minio
+
+components:
+  - ../../common/namespace
+  - ../../common/pvc
+
+secretGenerator:
+  - name: minio
+    envs:
+      - ../../secrets/minio-secrets.env
+    behavior: merge

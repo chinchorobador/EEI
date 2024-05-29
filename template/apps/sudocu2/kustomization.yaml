@@ -1,0 +1,43 @@
+resources:
+  - ../../../base/sudocu2
+  - ../../../base/sudocu2/init-jobs
+
+nameSuffix: -v2
+
+components:
+  - config
+  - secrets
+
+namespace: devops-tcricco
+
+configMapGenerator:
+  - name: global.env
+    literals:
+      - DOMINIO=sudocu2.devops.siu.edu.ar
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: global.env
+      fieldPath: data.DOMINIO
+    targets:
+      - select:
+          kind: Ingress
+        fieldPaths:
+          - spec.rules.0.host
+          - spec.tls.0.hosts.0
+          - spec.tls.0.secretName
+
+patches:
+  - target:
+      kind: Ingress
+    patch: |-
+      - op: add
+        path: /metadata/annotations/cert-manager.io~1cluster-issuer
+        value: letsencrypt
+  - target:
+      kind: PersistentVolumeClaim
+    patch: |-
+      - op: add
+        path: /spec/storageClassName
+        value: longhorn

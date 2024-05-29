@@ -1,0 +1,7 @@
+resources:
+  - ../../../../../eei-k8s/base-siu/diaguita/jobs/init
+
+components:
+  - ../../../apps/diaguita/config
+  - ../../../apps/diaguita/secrets
+  - ../../../common

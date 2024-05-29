@@ -1,0 +1,8 @@
+resources:
+  - ../../../../eei-k8s/base-siu/documentos
+
+components:
+  - config
+  - secrets
+  - ../../common/namespace
+  - ../../common/ingress

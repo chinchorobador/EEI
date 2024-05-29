@@ -1,0 +1,7 @@
+resources:
+  - ../../../../../eei-k8s/base-siu/documentos/jobs/init
+
+components:
+  - ../../../apps/documentos/config
+  - ../../../apps/documentos/secrets
+  - ../../../common

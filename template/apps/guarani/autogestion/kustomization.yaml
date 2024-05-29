@@ -1,0 +1,7 @@
+resources:
+  - ../../../../../eei-k8s/base-siu/guarani/autogestion
+
+components:
+  - config
+  - secrets
+  - ../../../common
