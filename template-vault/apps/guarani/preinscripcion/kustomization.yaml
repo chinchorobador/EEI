@@ -1,0 +1,6 @@
+resources:
+  - ../../../../eei-k8s/base-siu/guarani/preinscripcion
+
+components:
+  - config
+  - ../../../common

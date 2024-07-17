@@ -1,0 +1,6 @@
+resources:
+  - ../../../eei-k8s/base-siu/diaguita
+
+components:
+  - config
+  - ../../common

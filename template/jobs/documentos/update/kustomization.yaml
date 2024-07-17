@@ -1,5 +1,5 @@
 resources:
-  - ../../../../../eei-k8s/base-siu/documentos/jobs/update
+  - ../../../../eei-k8s/base-eei/1.7.2/arai/documentos/jobs/update
 
 components:
   - ../../../apps/documentos/config

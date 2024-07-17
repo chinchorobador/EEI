@@ -1,5 +1,5 @@
 resources:
-  - ../../../../eei-k8s/base-siu/pilaga
+  - ../../../eei-k8s/base-siu/pilaga
 
 components:
   - config

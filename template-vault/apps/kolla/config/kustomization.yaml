@@ -1,0 +1,7 @@
+kind: Component
+
+configMapGenerator:
+  - name: kolla.env
+    envs:
+      - kolla.env
+    behavior: merge

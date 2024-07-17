@@ -1,5 +1,5 @@
 resources:
-  - ../../../../../eei-k8s/base-siu/guarani/preinscripcion
+  - ../../../../eei-k8s/base-siu/guarani/preinscripcion
 
 components:
   - config

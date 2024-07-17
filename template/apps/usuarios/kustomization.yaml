@@ -1,5 +1,5 @@
 resources:
-  - ../../../../eei-k8s/base-siu/usuarios
+  - ../../../eei-k8s/base-eei/1.7.2/arai/usuarios
 
 components:
   - config

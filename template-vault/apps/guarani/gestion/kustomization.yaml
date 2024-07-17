@@ -1,0 +1,6 @@
+resources:
+  - ../../../../eei-k8s/base-siu/guarani/gestion
+
+components:
+  - config
+  - ../../../common

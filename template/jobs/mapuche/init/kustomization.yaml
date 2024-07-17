@@ -1,5 +1,5 @@
 resources:
-  - ../../../../../eei-k8s/base-siu/mapuche/jobs/init
+  - ../../../../eei-k8s/base-siu/mapuche/jobs/init
 
 components:
   - ../../../apps/mapuche/config

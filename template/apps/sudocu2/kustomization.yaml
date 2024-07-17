@@ -8,7 +8,7 @@ components:
   - config
   - secrets
 
-namespace: devops-tcricco
+namespace: template-universidad
 
 configMapGenerator:
   - name: global.env
