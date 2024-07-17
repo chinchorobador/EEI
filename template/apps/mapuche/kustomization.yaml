@@ -1,5 +1,5 @@
 resources:
-  - ../../../../eei-k8s/base-siu/mapuche
+  - ../../../eei-k8s/base-siu/mapuche
 
 components:
   - config

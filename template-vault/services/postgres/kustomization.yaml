@@ -1,0 +1,6 @@
+resources:
+  - ../../../eei-k8s/base-dev/postgres
+
+components:
+  - ../../common/namespace
+  - ../../common/pvc

@@ -1,5 +1,5 @@
 resources:
-  - ../../../../../../eei-k8s/base-siu/guarani/gestion/jobs/init
+  - ../../../../../eei-k8s/base-siu/guarani/gestion/jobs/init
 
 components:
   - ../../../../apps/guarani/gestion/config

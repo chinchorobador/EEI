@@ -1,5 +1,5 @@
 resources:
-  - ../../../../eei-k8s/base-dev/ldap
+  - ../../../eei-k8s/base-dev/ldap
 
 components:
   - ../../common/namespace
@@ -9,4 +9,3 @@ secretGenerator:
   - name: ldap
     envs:
       - ../../secrets/ldap-secrets.env
-    behavior: merge

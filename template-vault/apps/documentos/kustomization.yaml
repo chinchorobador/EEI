@@ -1,0 +1,7 @@
+resources:
+  - ../../../eei-k8s/base-eei/1.7.2/arai/documentos
+
+components:
+  - config
+  - ../../common/namespace
+  - ../../common/ingress

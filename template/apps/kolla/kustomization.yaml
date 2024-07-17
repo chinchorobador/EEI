@@ -1,5 +1,5 @@
 resources:
-  - ../../../../eei-k8s/base-siu/kolla
+  - ../../../eei-k8s/base-siu/kolla
 
 components:
   - config

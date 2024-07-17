@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "kolla",
+        "etiqueta": "SIU-Kolla",
+        "descripcion": "SIU-Kolla: Módulo de gestión de encuentas",
+        "url": "https://uunn.local/kolla",
+        "version": "4.8.2",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://uunn.local/kolla/default-sp": {
+            "appUniqueId": "kolla",
+            "AssertionConsumerService": "https://uunn.local/kolla/?acs",
+            "SingleLogoutService": "https://uunn.local/kolla/?sls"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "kolla.png"
+}

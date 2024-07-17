@@ -1,5 +1,5 @@
 resources:
-  - ../../../../../eei-k8s/base-siu/sudocu/jobs/init
+  - ../../../../eei-k8s/base-eei/1.7.2/sudocu/jobs/init
 
 components:
   - ../../../apps/sudocu/config

@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "sudocu",
+        "etiqueta": "SUDOCU",
+        "descripcion": "SUDOCU: Sistema Único Documental",
+        "url": "https://uunn.local/sudocu",
+        "version": "1.4.10",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://uunn.local/sudocu": {
+            "appUniqueId": "sudocu",
+            "AssertionConsumerService": "https://uunn.local/sudocu/api/auth/saml/callback",
+            "SingleLogoutService": "https://uunn.local/sudocu/#!/sso/logout_local"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "sudocu.png"
+}

@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "guarani-autogestion",
+        "etiqueta": "SIU-Guaraní - Autogestión",
+        "descripcion": "SIU-Guaraní: Módulo de gestión académica",
+        "url": "https://uunn.local/guarani/autogestion/uunn/acceso?auth=saml",
+        "version": "3.21.3",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://uunn.local/guarani/autogestion/uunn/acceso": {
+            "appUniqueId": "guarani-autogestion",
+            "AssertionConsumerService": "https://uunn.local/guarani/autogestion/uunn/acceso?auth=saml",
+            "SingleLogoutService": "https://uunn.local/guarani/autogestion/uunn/acceso/logout"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "guarani.png"
+}

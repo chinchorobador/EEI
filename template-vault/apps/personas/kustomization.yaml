@@ -1,0 +1,6 @@
+resources:
+  - ../../../eei-k8s/base-eei/1.7.2/arai/personas
+
+components:
+  - config
+  - ../../common

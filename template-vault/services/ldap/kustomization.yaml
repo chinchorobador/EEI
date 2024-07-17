@@ -1,0 +1,6 @@
+resources:
+  - ../../../eei-k8s/base-dev/ldap
+
+components:
+  - ../../common/namespace
+  - ../../common/pvc

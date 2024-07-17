@@ -1,0 +1,7 @@
+kind: Component
+
+configMapGenerator:
+  - name: guarani-gestion.env
+    envs:
+      - guarani-gestion.env
+    behavior: merge
