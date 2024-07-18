@@ -18,15 +18,15 @@ Tenga en cuenta que el objetivo de este instructivo es dejar funcionando un ento
 
 ## Requisitos previos
 
-- kubeadm
-- kustomize v.5.3.0 (como mínimo). [Repositorio a releases](https://github.com/kubernetes-sigs/kustomize/releases)
-- (opcional): OpenLens como GUI para gestionar kubernetes
+Partiendo de la base con que ya se cuenta con un cluster de kubernetes, los requisitos básicos para la gestión del mismo son los siguientes:
 
-Nota: Para facilitar la instalación de dependencias se puede utilizar [arkade](https://github.com/alexellis/arkade)
+- **Kubectl** (se recomienda que la versión de cliente tenga una diferencia máxima de 1 version menor con respecto a la version del servidor).
+- **Kustomize** v.5.3.0 (como mínimo). [Repositorio a releases](https://github.com/kubernetes-sigs/kustomize/releases)
+- (Opcional): OpenLens como GUI para gestionar kubernetes
 
-```
+> Nota: Para facilitar la instalación de dependencias se puede utilizar [arkade](https://github.com/alexellis/arkade)
 
-```
+
 
 ## Clonado del repositorio
 
@@ -35,7 +35,7 @@ El repositorio de deployments contiene un submodulo como repositorio base llamad
 Para clonar simulanteamente tanto el repositorio de deployment como el submodulo debe ejecutarse el siguiente comando a la hora del git clone
 
 ```
-git clone --recursive https://gitlab.siu.edu.ar/devops/k8s-deployments
+git clone --recursive https://gitlab.siu.edu.ar/devops/k8s-deployments.git
 ```
 
 En caso de tener problemas para pullear el submodulo por https, puede settearse la url por ssh con 
@@ -49,20 +49,27 @@ git submodule set-url siu-k8s git@gitlab.siu.edu.ar:devops/siu-k8s.git
 La base del proyecto no se modifica directamente. En su lugar, se crean overlays que son copias de la carpeta `template/` parametrizado conforme a los requisitos de su instalación
 
 ### Crear un Overlay Personalizado
-Para crear un overlay personalizado primeramente hay que dirigirse a la ruta `template/scripts-init/` que es donde tendremos el script para poder generarlo.
+
+Para crear un overlay personalizado primeramente hay que dirigirse a la ruta `template/scripts-init/` donde estará el script para poder generarlo.
 
 ```bash
 cd template/scripts-init/
 ```
 
-En segundo lugar es necesario generar los secrets de registry que es de donde luego se van a pullear las imágenes necesarias para el despliegue. Estos se deben crear del Gitlab/Hub respectivamente, hacer una copia de registry-secrets.json.dist y editar los valores necesarios:
+En segundo lugar es necesario generar los secrets de registry que es de donde luego se van a pullear las imágenes necesarias para el despliegue. Estos se deben crear del Gitlab/Hub respectivamente, hacer una copia de `registry-secrets.json.dist` y editar los valores necesarios:
 
 ```bash
 cp registry-secrets.json.dist registry-secrets.json
 vi registry-secrets.json
 ```
 
-Como ultimo paso ya se puede ejecutar el script nuevo-overlay.sh, proporcionando el nombre del overlay, el dominio y el namespace. Este script creará el overlay y configurará todos los secretos necesarios.
+Como ultimo paso debe ejecutar el script `nuevo-overlay.sh`, proporcionando el nombre del overlay, el dominio y el namespace. Este script creará el overlay y configurará todos los secretos necesarios.
+
+```bash
+./nuevo-overlay.sh <nombre-del-overlay> <dominio> <namespace>
+```
+
+por ejemplo
 
 ```bash
 ./nuevo-overlay.sh universidad universidad.edu.ar template-universidad
@@ -74,19 +81,23 @@ Este script se encargará de realizar las siguientes tareas:
 - Configurar el namespace especificado.
 - Generar y configurar todos los secrets necesarios para el despliegue.
 
-> Nota: Después de ejecutar el script, si necesita realizar alguna personalización adicional en los secrets generados, puede editar los archivos en `universidad/secrets` según sea necesario.
+
+> Nota: Después de ejecutar el script, si necesita realizar alguna personalización adicional en los secrets generados, puede editar los archivos en `<nombre-del-overlay>/secrets` según sea necesario.
 
 ## Secrets
+
 Aplicar los secrets:
 
 ```bash
-kubectl apply -k overlays/universidad/secrets
+kubectl apply -k <nombre-del-overlay>/secrets
 ```
 
 ## Configuracion servicios basicos
+
 > Nota: en este punto debemos estar parados nuevamente en el root del proyecto para realizar todos los despliegues.
 
 ### Despliegue de postgres, ldap, minio.
+
 > Nota: Es importante destacar que estos despliegues están diseñados exclusivamente para pruebas o desarrollo, y no se recomiendan para entornos de producción. 
 La infraestructura se implementa utilizando Kubernetes en lugar de en entornos locales (on-premise).
 
