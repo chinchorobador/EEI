@@ -46,7 +46,14 @@ git submodule set-url siu-k8s git@gitlab.siu.edu.ar:devops/siu-k8s.git
 
 ## Estructura de proyecto
 
-La base del proyecto no se modifica directamente. En su lugar, se crean overlays que son copias de la carpeta `template/` parametrizado conforme a los requisitos de su instalación
+A continuación se presenta un diagrama como referencia de la estructura del proyecto:
+
+<img src="https://i.imgur.com/TWyPSjH.png" alt="Diagrama de estructura del proyecto"></img>
+[link al diagrama](https://i.imgur.com/TWyPSjH.png)
+
+A la hora de trabajar localmente, el repositorio base (es decir, el submodulo [EEI-K8s](https://gitlab.siu.edu.ar/devops/eei-k8s)) **no se modifica directamente** ya que la estructura de dicha base se utiliza como template, el cuál se referenciará en los overlays con la herramienta **kustomize**.
+
+En su lugar, se crean overlays que son copias de la carpeta `template/` parametrizado conforme a los requisitos de su instalación (TODO: CONTINUAR)
 
 ### Crear un Overlay Personalizado
 
@@ -63,6 +70,8 @@ cp registry-secrets.json.dist registry-secrets.json
 vi registry-secrets.json
 ```
 
+> Nota: Se recomienda utilizar tokens de acceso para ambos registries, con el fin de evitar guardar la contraseña de su usuario como texto plano en el `registry-secrets.json`
+
 Como ultimo paso debe ejecutar el script `nuevo-overlay.sh`, proporcionando el nombre del overlay, el dominio y el namespace. Este script creará el overlay y configurará todos los secretos necesarios.
 
 ```bash
@@ -74,13 +83,13 @@ por ejemplo
 ```bash
 ./nuevo-overlay.sh universidad universidad.edu.ar template-universidad
 ```
+
 Este script se encargará de realizar las siguientes tareas:
 
 - Crear la estructura del overlay.
 - Configurar el dominio especificado.
 - Configurar el namespace especificado.
 - Generar y configurar todos los secrets necesarios para el despliegue.
-
 
 > Nota: Después de ejecutar el script, si necesita realizar alguna personalización adicional en los secrets generados, puede editar los archivos en `<nombre-del-overlay>/secrets` según sea necesario.
 
@@ -91,6 +100,19 @@ Aplicar los secrets:
 ```bash
 kubectl apply -k <nombre-del-overlay>/secrets
 ```
+:::warning[**Advertencia**]
+
+Notese que el `.gitignore` del proyecto está excluyendo los siguientes directorios
+
+```
+**/secrets/**
+!template/secrets/**
+!template-vault/secrets/**
+```
+
+Asegurese que los secrets que haya creado para su overlay no sean commiteados dentro de su repositorio para evitar filtraciones de los mismos.
+
+:::
 
 ## Configuracion servicios basicos
 
@@ -314,3 +336,27 @@ Una vez realizado lo anterior ya podemos desplegar todos los servicios correspon
 ```bash
 kustomize build --load-restrictor LoadRestrictionsNone universidad/apps/sudocu | kubectl apply -f -
 ```
+
+## Crear usuario Admin de Sudocu en Araí Usuarios
+1. Ingrese a Araí-Usuarios (user `admin` y password seteado [anteriormente](arai.md#bootstraping-del-proyecto))
+1. Dirigirse al item Usuarios
+1. Presionar el botón `Agregar +`
+1. Completar de la siguiente manera el tab `Perfil`:
+   * Identificador: adminsudocu
+   * Nombre: Admin
+   * Apellido: Sudocu
+   * Nombre: Admin
+   * E-mail: admin@sudocu.edu.ar
+   * Password: ******
+1. Presionar el botón `Guardar`
+1. Completar de la siguiente manera el tab `Cuentas`
+   * Aplicación: Sudocu
+   * Cuenta: adminsudocu
+1. Presionar el botón `Agregar`
+1. Presionar el botón `Guardar`
+
+
+
+> Una vez realizados estos pasos, debería poder acceder en https://universidad.edu.ar/sudocu (o el dominio que haya definido)
+
+Para mayor información y documentación funcional recurrir a la [página oficial de SUDOCU](https://sudocu.dev).

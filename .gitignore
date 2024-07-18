@@ -1,2 +1,4 @@
 **/scripts-init/registry-secrets.json
-
+**/secrets/**
+!template/secrets/**
+!template-vault/secrets/**
