@@ -1,5 +1,5 @@
 resources:
-  - ../../../../eei-k8s/base-siu/diaguita/jobs/init
+  - ../../../../siu-k8s/base-siu/diaguita/jobs/init
 
 components:
   - ../../../apps/diaguita/config

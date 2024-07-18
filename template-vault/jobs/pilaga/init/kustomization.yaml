@@ -1,5 +1,5 @@
 resources:
-  - ../../../../eei-k8s/base-siu/pilaga/jobs/init
+  - ../../../../siu-k8s/base-siu/pilaga/jobs/init
 
 components:
   - ../../../apps/pilaga/config

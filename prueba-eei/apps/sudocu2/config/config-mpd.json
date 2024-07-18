@@ -1,0 +1,24 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": "3010",
+    "modName": "mpd",
+    "secure": false,
+    "clusters": false,
+    "apiUrl": "https://sudocu2.devops.siu.edu.ar/api",
+    "urlHome": "https://sudocu2.devops.siu.edu.ar",
+    "socketUrl": "https://sudocu2.devops.siu.edu.ar/socket.gestion",
+    "socketPath": "/socket.io",
+    "socketSecure": false,
+    "livereload": "35738"
+  },
+  "cookiesOptions": {
+    "domain": "sudocu2.devops.siu.edu.ar",
+    "secure": false
+  },
+  "crts": {
+    "ca": "/etc/ssl/crt/sudocu.ca-bundle",
+    "cert": "/etc/ssl/crt/sudocu.crt",
+    "key": "/etc/ssl/crt/sudocu.key"
+  }
+}

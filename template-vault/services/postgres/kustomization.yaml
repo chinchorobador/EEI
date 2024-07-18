@@ -1,5 +1,5 @@
 resources:
-  - ../../../eei-k8s/base-dev/postgres
+  - ../../../siu-k8s/base-dev/postgres
 
 components:
   - ../../common/namespace

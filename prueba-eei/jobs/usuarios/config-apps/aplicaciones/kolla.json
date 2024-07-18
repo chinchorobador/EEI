@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "kolla",
+        "etiqueta": "SIU-Kolla",
+        "descripcion": "SIU-Kolla: Módulo de gestión de encuentas",
+        "url": "https://prueba-eei.devops-desarrollo.siu.edu.ar/kolla",
+        "version": "4.8.2",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://prueba-eei.devops-desarrollo.siu.edu.ar/kolla/default-sp": {
+            "appUniqueId": "kolla",
+            "AssertionConsumerService": "https://prueba-eei.devops-desarrollo.siu.edu.ar/kolla/?acs",
+            "SingleLogoutService": "https://prueba-eei.devops-desarrollo.siu.edu.ar/kolla/?sls"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "kolla.png"
+}

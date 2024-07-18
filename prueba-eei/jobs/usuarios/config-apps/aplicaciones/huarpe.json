@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "huarpe",
+        "etiqueta": "Huarpe",
+        "descripcion": "SIU-Huarpe: Portal de autogestión",
+        "url": "https://prueba-eei.devops-desarrollo.siu.edu.ar",
+        "version": "3.2.0",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://prueba-eei.devops-desarrollo.siu.edu.ar/saml/metadata": {
+            "appUniqueId": "huarpe",
+            "AssertionConsumerService": "https://prueba-eei.devops-desarrollo.siu.edu.ar/saml/acs",
+            "SingleLogoutService": "https://prueba-eei.devops-desarrollo.siu.edu.ar/saml/logout"
+        }
+    },
+    "permite_acceso_sin_cuenta": "true",
+    "icono": "huarpe.png"
+}

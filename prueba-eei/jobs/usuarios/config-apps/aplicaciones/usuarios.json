@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "idm-core",
+        "etiqueta": "ARAI-Usuarios",
+        "descripcion": "Aplicación de gestión de identidad centralizada",
+        "url": "https://prueba-eei.devops-desarrollo.siu.edu.ar/usuarios",
+        "version": "3.2.3",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://prueba-eei.devops-desarrollo.siu.edu.ar/usuarios/default-sp": {
+            "appUniqueId": "idm-core",
+            "AssertionConsumerService": "https://prueba-eei.devops-desarrollo.siu.edu.ar/usuarios/?acs",
+            "SingleLogoutService": "https://prueba-eei.devops-desarrollo.siu.edu.ar/usuarios/?sls"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "usuarios.png"
+}

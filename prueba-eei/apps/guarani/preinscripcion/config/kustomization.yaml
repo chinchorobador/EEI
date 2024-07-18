@@ -1,0 +1,7 @@
+kind: Component
+
+configMapGenerator:
+  - name: guarani-preinscripcion.env
+    envs:
+      - guarani-preinscripcion.env
+    behavior: merge

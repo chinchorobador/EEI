@@ -30,7 +30,7 @@ Nota: Para facilitar la instalación de dependencias se puede utilizar [arkade](
 
 ## Clonado del repositorio
 
-El repositorio de deployments contiene un submodulo como repositorio base llamado [EEI-K8s](https://gitlab.siu.edu.ar/devops/eei-k8s)
+El repositorio de deployments contiene un submodulo como repositorio base llamado [siu-k8s](https://gitlab.siu.edu.ar/devops/siu-k8s)
 
 Para clonar simulanteamente tanto el repositorio de deployment como el submodulo debe ejecutarse el siguiente comando a la hora del git clone
 
@@ -41,7 +41,7 @@ git clone --recursive https://gitlab.siu.edu.ar/devops/k8s-deployments
 En caso de tener problemas para pullear el submodulo por https, puede settearse la url por ssh con 
 
 ```
-git submodule set-url eei-k8s git@gitlab.siu.edu.ar:devops/eei-k8s.git
+git submodule set-url siu-k8s git@gitlab.siu.edu.ar:devops/siu-k8s.git
 ```
 
 ## Estructura de proyecto
@@ -269,7 +269,7 @@ kustomize build --load-restrictor LoadRestrictionsNone universidad/apps/estampad
 
 Por defecto, las API se encuentran expuestas en el rango 127.0.0.1/32. Es necesario reemplazar por los rangos autorizados para acceder al servicio. Este paso es de suma importancia para garantizar la seguridad del sistema.
 
-Para llevar a cabo esta configuración, se debe editar el archivo [overlays/devops/common/ingress/kustomization.yaml](https://gitlab.siu.edu.ar/devops/eei-k8s/-/blob/main/overlays/devops/common/ingress/kustomization.yaml?ref_type=heads). En la sección `value` de este archivo, se encuentra el rango a cambiar, mientras que en  la seccion `name`se encuentran todos los nombres de ingress que se va whitelistear.
+Para llevar a cabo esta configuración, se debe editar el archivo [overlays/devops/common/ingress/kustomization.yaml](https://gitlab.siu.edu.ar/devops/siu-k8s/-/blob/main/overlays/devops/common/ingress/kustomization.yaml?ref_type=heads). En la sección `value` de este archivo, se encuentra el rango a cambiar, mientras que en  la seccion `name`se encuentran todos los nombres de ingress que se va whitelistear.
 
 ## Configuracion y despliegue de Sudocu
 

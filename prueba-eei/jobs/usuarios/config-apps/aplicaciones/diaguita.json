@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "diaguita",
+        "etiqueta": "SIU-Diaguita",
+        "descripcion": "SIU-Diaguita: Módulo de compras, contrataciones y patrimonio",
+        "url": "https://prueba-eei.devops-desarrollo.siu.edu.ar/diaguita",
+        "version": "3.5.0",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://prueba-eei.devops-desarrollo.siu.edu.ar/diaguita/default-sp": {
+            "appUniqueId": "diaguita",
+            "AssertionConsumerService": "https://prueba-eei.devops-desarrollo.siu.edu.ar/diaguita/?acs",
+            "SingleLogoutService": "https://prueba-eei.devops-desarrollo.siu.edu.ar/diaguita/?sls"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "diaguita.png"
+}

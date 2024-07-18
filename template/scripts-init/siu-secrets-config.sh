@@ -94,9 +94,9 @@ generar_secrets(){
     fi
     env | sort > ${SECRETS_DIR}/secrets.env
 
-    ls ../../eei-k8s/template/secrets | while read CFG; do
+    ls ../../siu-k8s/template/secrets | while read CFG; do
         if [ ! -f ${SECRETS_DIR}/${CFG} ]; then
-            cat ../../eei-k8s/template/secrets/${CFG} | envsubst > ${SECRETS_DIR}/${CFG}
+            cat ../../siu-k8s/template/secrets/${CFG} | envsubst > ${SECRETS_DIR}/${CFG}
         fi
     done
 }

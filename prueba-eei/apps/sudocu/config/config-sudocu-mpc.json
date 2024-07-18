@@ -1,0 +1,26 @@
+{
+    "server": {
+      "host": "0.0.0.0",
+      "port": "3015",
+      "modName": "mpc",
+      "securePort": 0,
+      "secure": false,
+      "clusters": false,
+      "apiUrl": "https://prueba-eei.devops-desarrollo.siu.edu.ar/sudocu/api",
+      "urlHome": "https://prueba-eei.devops-desarrollo.siu.edu.ar/sudocu",
+      "livereload": "35715",
+      "socketUrl": "https://prueba-eei.devops-desarrollo.siu.edu.ar/socket.gestion",
+      "socketPath": "/sudocu/socket.io",
+      "socketSecure": false,
+      "contexto": "fr_sudocu_mpc"
+    },
+    "cookiesOptions": {
+      "domain": "prueba-eei.devops-desarrollo.siu.edu.ar",
+      "secure": false
+    },
+    "crts": {
+      "ca": "/etc/ssl/crt/sudocu.ca-bundle",
+      "cert": "/etc/ssl/crt/",
+      "key": "/etc/ssl/crt/"
+    }
+  }  

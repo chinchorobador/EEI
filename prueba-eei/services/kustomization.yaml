@@ -1,0 +1,4 @@
+resources:
+  - ldap
+  - minio
+  - postgres

@@ -1,5 +1,5 @@
 resources:
-  - ../../../../eei-k8s/base-siu/kolla/jobs/init
+  - ../../../../siu-k8s/base-siu/kolla/jobs/init
 
 components:
   - ../../../apps/kolla/config

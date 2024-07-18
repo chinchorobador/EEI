@@ -1,0 +1,26 @@
+kind: Component
+
+resources: []
+
+configMapGenerator:
+  # - name: idp.crt
+  #   files:
+  #     - certificado_idp.crt
+  - name: sudocu-config
+    files:
+      - config-api-server.json
+      - config-gestion.json
+      - config-mpd.json
+    behavior: merge
+  - name: sudocu-api2
+    envs:
+      - api2.env
+    behavior: merge
+  - name: sudocu-web
+    envs:
+      - web.env
+    behavior: merge
+  # - name: sudocu-worker
+  #   envs:
+  #     - worker.env
+  #   behavior: merge

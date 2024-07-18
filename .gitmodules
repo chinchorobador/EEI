@@ -1,3 +1,3 @@
-[submodule "eei-k8s"]
-	path = eei-k8s
-	url = https://gitlab.siu.edu.ar/devops/eei-k8s.git
+[submodule "siu-k8s"]
+	path = siu-k8s
+	url = https://gitlab.siu.edu.ar/devops/siu-k8s.git
