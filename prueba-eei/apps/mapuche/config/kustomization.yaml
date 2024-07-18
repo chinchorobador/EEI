@@ -1,7 +1,0 @@
-kind: Component
-
-configMapGenerator:
-  - name: mapuche.env
-    envs:
-      - mapuche.env
-    behavior: merge
