@@ -48,8 +48,8 @@ git submodule set-url siu-k8s git@gitlab.siu.edu.ar:devops/siu-k8s.git
 
 A continuación se presenta un diagrama como referencia de la estructura del proyecto:
 
-<img src="https://i.imgur.com/TWyPSjH.png" alt="Diagrama de estructura del proyecto"></img>
-[link al diagrama](https://i.imgur.com/TWyPSjH.png)
+<img src="https://i.imgur.com/IIGTEtj.png" alt="Diagrama de estructura del proyecto"></img>
+[link al diagrama](https://i.imgur.com/IIGTEtj.png)
 
 A la hora de trabajar localmente, el repositorio base (es decir, el submodulo [EEI-K8s](https://gitlab.siu.edu.ar/devops/eei-k8s)) **no se modifica directamente** ya que la estructura de dicha base se utiliza como template, el cuál se referenciará en los overlays con la herramienta **kustomize**.
 
