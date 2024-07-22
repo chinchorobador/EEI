@@ -53,7 +53,23 @@ A continuación se presenta un diagrama como referencia de la estructura del pro
 
 A la hora de trabajar localmente, el repositorio base (es decir, el submodulo [EEI-K8s](https://gitlab.siu.edu.ar/devops/eei-k8s)) **no se modifica directamente** ya que la estructura de dicha base se utiliza como template, el cuál se referenciará en los overlays con la herramienta **kustomize**.
 
-En su lugar, se crean overlays que son copias de la carpeta `template/` parametrizado conforme a los requisitos de su instalación (TODO: CONTINUAR)
+En su lugar, se crean overlays que son copias de la carpeta `template/` parametrizado conforme a los requisitos de su instalación (@TODO: CONTINUAR)
+
+### Crear un namespace para su cluster
+
+El formato de template actual propone el despliegue de las aplicaciones SIU (y sus dependencias) dentro de un **único** namespace. Notese que éste requerimiento **no es excluyente, pero necesario** para desplegar los servicios de la manera indicada en esta documentación.
+
+Para crear el namespace en el cluster al cual está conectado, utilice el siguiente comando
+
+```bash
+kubectl create namespace <namespace>
+```
+
+por ejemplo
+
+```bash
+kubectl create namespace template-universidad
+```
 
 ### Crear un Overlay Personalizado
 
@@ -95,7 +111,13 @@ Este script se encargará de realizar las siguientes tareas:
 
 ## Secrets
 
-Aplicar los secrets:
+Antes de aplicar los secrets, dirijase a la raíz del proyecto nuevamente para facilitar los pasos posteriores
+
+```bash
+cd ../..
+```
+
+Una vez parado en la raíz del proyecto, Aplicar los secrets:
 
 ```bash
 kubectl apply -k <nombre-del-overlay>/secrets
@@ -115,8 +137,6 @@ Asegurese que los secrets que haya creado para su overlay no sean commiteados de
 :::
 
 ## Configuracion servicios basicos
-
-> Nota: en este punto debemos estar parados nuevamente en el root del proyecto para realizar todos los despliegues.
 
 ### Despliegue de postgres, ldap, minio.
 
@@ -194,7 +214,7 @@ Existen tambien otro archivo de configuración asociado en: `universidad/apps/pe
 
 ### Acceso a Postgres
 
-Crear la base de datos como recurso externo, recordar que la configuración para la misma se debe incluir en el secret `template/eei-secrets/personas-secret.env` y también en el archivo `universidad/apps/personas/config/personas-api.env`.env
+Crear la base de datos como recurso externo, recordar que la configuración para la misma se debe incluir en el secret `universidad/secrets/personas-secret.env` y también en el archivo `universidad/apps/personas/config/personas-api.env`.env
 
 ```
 ###### CONFIG DE LA BASE DE NEGOCIO ######
@@ -284,25 +304,29 @@ kustomize build --load-restrictor LoadRestrictionsNone universidad/jobs/document
 
 ### Stamper
 
-La especificación del servicio de este módulo se encuentra en `base-siu/estampador` dentrode este tendremos los archivos pertinentes del modulo
+La especificación del servicio de este módulo se encuentra en `base-siu/estampador` dentro de este tendremos los archivos pertinentes del modulo
 
-Existe tambien otro archivo de configuración asociados en universidad/apps/estampador/config: `docs-stamper.env`.
+Existe tambien otro archivo de configuración asociados en `universidad/apps/estampador/config`: `docs-stamper.env`.
 
 Una vez tenga el Keystore debe editar la configuracion en `universidad/apps/estampador/config/docs.stamper.env`
 
 Una vez que se tenga posesión de la keystore a utilizar ejecute el siguiente comando para generar el nuevo secreto.
 
+@TODO: agregar indicaciones con mkcert
+
 ```bash
 kustomize build --load-restrictor LoadRestrictionsNone universidad/apps/estampador | kubectl apply -f -
 ```
 
-> Nota: El ambiente se inicia con uno stamper de prueba (autofirmado) ubicado en `base-siu/estampador/secrets`. Si dispone de un keystore personalizado, puede reemplazarlo en esta ruta y ademas debe cambiar la clave en `universidad/secrets/docs-stamper-secrets.env` en y asi utilizarlo sin problemas. También puede directamente desactivar el stamper, esto se puede hacer desde
+> Nota: Si dispone de un keystore personalizado, debe incluirlo el archivo .p12 en `universidad/secrets`, y además cambiar la clave `ARAI_DOCS_STAMPER_KEYSTORE_PASS` ubicada en el archivo `universidad/secrets/docs-stamper-secrets.env` para poder utilizarlo. 
+
+En caso de no necesitarlo, puede desactivar el stamper modificando la variable `STAMPER_ACTIVO` y `STAMPER_SELLOS_ACTIVO` ubicadas en `universidad/apps/documentos/config/docs.env`
 
 ## Habilitar acceso externo de API´s
 
 Por defecto, las API se encuentran expuestas en el rango 127.0.0.1/32. Es necesario reemplazar por los rangos autorizados para acceder al servicio. Este paso es de suma importancia para garantizar la seguridad del sistema.
 
-Para llevar a cabo esta configuración, se debe editar el archivo [overlays/devops/common/ingress/kustomization.yaml](https://gitlab.siu.edu.ar/devops/siu-k8s/-/blob/main/overlays/devops/common/ingress/kustomization.yaml?ref_type=heads). En la sección `value` de este archivo, se encuentra el rango a cambiar, mientras que en  la seccion `name`se encuentran todos los nombres de ingress que se va whitelistear.
+Para llevar a cabo esta configuración, se debe editar el archivo `universidad/common/ingress/kustomization.yaml`. En la sección `value` de este archivo, se encuentra el rango a cambiar, mientras que en la seccion `name` se encuentran todos los nombres de ingress que se va whitelistear.
 
 ## Configuracion y despliegue de Sudocu
 
@@ -312,18 +336,22 @@ Existen tambien otros archivos de configuración asociados en universidad/apps/s
 
 ### Acceso a Postgres
 
-Editar la configuracion de conexión a la base de datos en el archivo `universidad/apps/sudocu/config/config-api-server.json`:
+Para configurar la conexión de sudocu con el servidor postgres, verifique que los datos de la configuración ubicados en el archivo `universidad/apps/sudocu/config/config-api-server.json` sean los correctos:
 
 ```
   "ungsxt": {
-    "host": "db-sudocu",
+    "host": "db-siu",
     "port": "5432",
     "database": "sudocu",
     "user": "postgres"
   }
 ```
 
+> Nota: El parametro host `db-siu` hace referencia al pod de postgres desplegado con este repositorio. Si precisa conectarlo con otra instancia de postgres que ya tiene desplegada, o con una instancia de postgres en otro namespace, recuerde ajustar este parametro. 
+
 Luego debe proceder a realizar el deploy del init el cual procederá a crear la base
+
+@TODO: ver en que partes hacer la aclaración sobre el host db-siu en toda la documentación.
 
 ```bash
 kustomize build --load-restrictor LoadRestrictionsNone universidad/jobs/sudocu/init | kubectl apply -f -
@@ -338,7 +366,7 @@ kustomize build --load-restrictor LoadRestrictionsNone universidad/apps/sudocu |
 ```
 
 ## Crear usuario Admin de Sudocu en Araí Usuarios
-1. Ingrese a Araí-Usuarios (user `admin` y password seteado [anteriormente](arai.md#bootstraping-del-proyecto))
+1. Ingrese a Araí-Usuarios con la credencial de administrador (password setteado en `universidad/secrets/usuarios-secrets.env`)
 1. Dirigirse al item Usuarios
 1. Presionar el botón `Agregar +`
 1. Completar de la siguiente manera el tab `Perfil`:
