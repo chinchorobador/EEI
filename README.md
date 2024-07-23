@@ -18,13 +18,11 @@ Tenga en cuenta que el objetivo de este instructivo es dejar funcionando un ento
 
 ## Requisitos previos
 
-Partiendo de la base con que ya se cuenta con un cluster de kubernetes, los requisitos básicos para la gestión del mismo son los siguientes:
+Partiendo de la base con que **ya se cuenta con un cluster de kubernetes**, los requisitos básicos para la gestión del mismo son los siguientes:
 
-- **Kubectl** (se recomienda que la versión de cliente tenga una diferencia máxima de 1 version menor con respecto a la version del servidor).
-- **Kustomize** v.5.3.0 (como mínimo). [Repositorio a releases](https://github.com/kubernetes-sigs/kustomize/releases)
+- **Kubectl** (se recomienda que la versión de cliente tenga una diferencia máxima de 1 version menor con respecto a la version del servidor). [Documentación oficial](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+- **Kustomize** v.5.3.0 (como mínimo). [Documentación oficial](https://kubectl.docs.kubernetes.io/installation/kustomize/)
 - (Opcional): OpenLens como GUI para gestionar kubernetes
-
-> Nota: Para facilitar la instalación de dependencias se puede utilizar [arkade](https://github.com/alexellis/arkade)
 
 
 
