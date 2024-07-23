@@ -13,4 +13,13 @@ configMapGenerator:
       - pilaga.json
       - usuarios.json
       - sudocu.json
-    behavior: merge
+  - name: iconos
+    files:
+      - iconos/diaguita.png
+      - iconos/guarani.png
+      - iconos/huarpe.png
+      - iconos/kolla.png
+      - iconos/mapuche.png
+      - iconos/pilaga.png
+      - iconos/usuarios.png
+      - iconos/sudocu.png
