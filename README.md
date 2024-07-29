@@ -36,11 +36,28 @@ Para clonar simulanteamente tanto el repositorio de deployment como el submodulo
 git clone --recursive https://gitlab.siu.edu.ar/devops/k8s-deployments.git
 ```
 
-En caso de tener problemas para pullear el submodulo por https, puede settearse la url por ssh con 
+Si ya tiene clonado el repositorio pero tiene problemas para clonar el submodulo, puede especificar qué método especifico usar para clonarlo (ya sea HTTPS o SSH) con los siguientes comandos 
+
+> Clonado por HTTPS
+```
+git submodule set-url siu-k8s https://gitlab.siu.edu.ar/devops/siu-k8s.git
+```
+
+>Clonado por SSH
 
 ```
 git submodule set-url siu-k8s git@gitlab.siu.edu.ar:devops/siu-k8s.git
 ```
+
+## Actualización de submodulo
+
+Si usted ya tiene clonado el repositorio y desea actualizar el submodulo siu-k8s, puede hacerlo con el siguiente comando
+
+```
+git submodule update --init --recursive
+```
+
+
 
 ## Estructura de proyecto
 
@@ -400,3 +417,27 @@ Para llevar a cabo esta configuración, se debe editar el archivo `universidad/c
 
 Recuerde que para aplicar estos cambios, **debe volver a desplegar cada uno de los servicios cuyas APIs se ven impactadas.**
 
+## Personalización de la arquitectura
+
+En la arquitectura de este despliegue se optó por utilizar `nginx` como proveedor de ingress y `longhorn` como storage class, pero en base a sus requerimientos es posible optar por otros servicios para estas soluciones (ej: traefik como ingress y TrueNAS como storage). Tenga en cuenta que para esto, deberá realizar modificaciones en los siguientes archivos, acompañandose de la documentación del proveedor elegido:
+
+
+#### Ingress
+
+`/common/ingress/kustomization.yaml`
+
+#### Storage Class
+
+`/common/pvc/kustomization.yaml`
+
+Lectura sugerida sobre storage classes e ingress: 
+
+- https://kubernetes.io/docs/concepts/storage/storage-classes/
+
+- https://www.kubecost.com/kubernetes-best-practices/kubernetes-storage-class/
+
+- https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+- https://amazic.com/list-of-the-top-ingress-controllers-for-kubernetes/
+
+- https://www.solo.io/topics/kubernetes-api-gateway/kubernetes-ingress/
