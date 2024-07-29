@@ -220,7 +220,7 @@ Por último deberá ejecutar este job, el cual se encarga de configurar las apps
 kustomize build --load-restrictor LoadRestrictionsNone universidad/jobs/usuarios/config-apps | kubectl apply -f -
 ```
 
-> Nota: De desearlo, es posible agregar aplicaciones adicionales, lo único que debe hacer es agregar el .json correspondiente y el icono de la aplicación dentro de `universidad/jobs/usuarios/config-apps`, eliminar el job y volverlo a correr.
+> Nota: De desearlo, es posible agregar service providers extras en arai-usuarios, para esto debe guardar un .json con los datos generales y de SAML de la aplicación, además de un icono para la misma, dentro de `universidad/jobs/usuarios/config-apps`. Luego debe reflejar estos archivos en el `universidad/jobs/usuarios/config-apps/aplicaciones/kustomization.yaml`, eliminar el job y volverlo a correr.
 
 Una vez realizados estos pasos, debería poder acceder en https://universidad.edu.ar/usuarios (o el dominio que haya definido).
 
