@@ -1,5 +1,5 @@
 resources:
-  - ../../../siu-k8s/base-siu/diaguita/3.05.0
+  - ../../../siu-k8s/base-siu/diaguita/3.5.0
 
 components:
   - config
