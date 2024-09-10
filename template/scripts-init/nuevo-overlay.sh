@@ -8,26 +8,67 @@ source reemplazar-namespace.sh
 MI_OVERLAY=$1
 MI_DOMINIO=$2
 MI_NAMESPACE=$3
+DIRECTORIO=../../${MI_OVERLAY}
 
-rsync -av --progress ../../template/ ../../${MI_OVERLAY}/ --exclude 'scripts-init'
+creacion_overlay(){
+    rsync -a --quiet ../../template/ ../../${MI_OVERLAY}/ --exclude 'scripts-init'
+    if [ $? -eq 1 ]; then
+        echo -e "\nNo se ha podido crear el overlay $MI_OVERLAY"
+        exit 1
+    fi
 
-DIRECTORIO_APPS=../../${MI_OVERLAY}/apps
-DIRECTORIO_INGRESS=../../${MI_OVERLAY}/common/ingress
-DIRECTORIO_APPS_HUARPE_ENV=../../${MI_OVERLAY}/apps/huarpe/config
-DIRECTORIO_CONFIG_APPS=../../${MI_OVERLAY}/jobs/usuarios/config-apps/aplicaciones
+    DIRECTORIO_APPS=../../${MI_OVERLAY}/apps
+    DIRECTORIO_INGRESS=../../${MI_OVERLAY}/common/ingress
+    DIRECTORIO_APPS_HUARPE_ENV=../../${MI_OVERLAY}/apps/huarpe/config
+    DIRECTORIO_CONFIG_APPS=../../${MI_OVERLAY}/jobs/usuarios/config-apps/aplicaciones
+    
+    reemplazar_dominios_apps "$DIRECTORIO_APPS"
+    reemplazar_dominios "$DIRECTORIO_INGRESS"
+    reemplazar_dominios "$DIRECTORIO_CONFIG_APPS"
+    reemplazar_dominios_huarpe_env "$DIRECTORIO_APPS_HUARPE_ENV"
 
-reemplazar_dominios_apps "$DIRECTORIO_APPS"
-reemplazar_dominios "$DIRECTORIO_INGRESS"
-reemplazar_dominios "$DIRECTORIO_CONFIG_APPS"
-reemplazar_dominios_huarpe_env "$DIRECTORIO_APPS_HUARPE_ENV"
+    SECRETS_DIR=../../${MI_OVERLAY}/secrets
 
-SECRETS_DIR=../../${MI_OVERLAY}/secrets
+    generar_secrets "$SECRETS_DIR"
+    generar_secrets_registry "$SECRETS_DIR"
 
-generar_secrets "$SECRETS_DIR"
-generar_secrets_registry "$SECRETS_DIR"
+    if [ $? -eq 1 ]; then
+        echo -e "\nHubo un error al crear $MI_OVERLAY debido a un problema con el registry-secret.json, verifique la existencia y el contenido de dicho archivo."
+        exit 1
+    fi
 
-DIRECTORIO_COMMON_NAMESPACE=../../${MI_OVERLAY}/common/namespace
-DIRECTORIO_SECRETS_NAMESPACE=../../${MI_OVERLAY}/secrets
+    DIRECTORIO_COMMON_NAMESPACE=../../${MI_OVERLAY}/common/namespace
+    DIRECTORIO_SECRETS_NAMESPACE=../../${MI_OVERLAY}/secrets
 
-reemplazar_common_namespace "$DIRECTORIO_COMMON_NAMESPACE"
-reemplazar_secrets_namespace "$DIRECTORIO_SECRETS_NAMESPACE"
+    reemplazar_common_namespace "$DIRECTORIO_COMMON_NAMESPACE"
+    reemplazar_secrets_namespace "$DIRECTORIO_SECRETS_NAMESPACE"
+
+    
+    echo -e "\Se ha creado el overlay $MI_OVERLAY"
+}
+
+if [ -d "$DIRECTORIO" ]; then
+    echo "Ya existe una carpeta que corresponde al overlay: $MI_OVERLAY"
+    echo "Como desea seguir:"
+    echo "R: Reemplazar"
+    echo "N: Nuevo"
+    echo "B: Borrar"
+    while true; do
+        read -p "Elige tu opción: " opt
+        case $opt in 
+            "R") echo "Se sobrescribe la carpeta $MI_OVERLAY. Si ya tiene pods desplegados en el namespace $MI_NAMESPACE debe analizar de elimarlos"
+            creacion_overlay
+            break;;
+            "N") mv ../../${MI_OVERLAY}/ ../../OLD_${MI_OVERLAY}/
+            echo "Se ha renombrado el overlay anterior"        
+            break;;
+            "B") rm -R ../../${MI_OVERLAY}/
+            echo "Se ha borra la carpeta del overlay"
+            exit;;
+        esac
+    done
+else
+
+creacion_overlay
+
+fi
