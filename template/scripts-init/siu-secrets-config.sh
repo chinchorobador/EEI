@@ -94,9 +94,16 @@ generar_secrets(){
     fi
     env | sort > ${SECRETS_DIR}/secrets.env
 
-    ls ../../siu-k8s/template/secrets | while read CFG; do
-        if [ ! -f ${SECRETS_DIR}/${CFG} ]; then
-            cat ../../siu-k8s/template/secrets/${CFG} | envsubst > ${SECRETS_DIR}/${CFG}
-        fi
-    done
+    if [ ! -d "../../siu-k8s/template/secrets" ]; then
+        echo -e "\nNo se encontró el directorio ../../siu-k8s/template/secrets, recuerde tener actualizado el submodulo siu-k8s."
+        exit 1
+    else
+        ls ../../siu-k8s/template/secrets | while read CFG; do
+            if [ ! -f ${SECRETS_DIR}/${CFG} ]; then
+                cat ../../siu-k8s/template/secrets/${CFG} | envsubst > ${SECRETS_DIR}/${CFG}
+            fi
+        done
+
+    fi
+
 }
