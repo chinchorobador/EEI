@@ -37,7 +37,7 @@ creacion_overlay(){
         exit 1
     fi
 
-    DIRECTORIO_APPS_NAMESPACE=../../${MI_OVERLAY}/apps/namespace
+    DIRECTORIO_APPS_NAMESPACE=../../${MI_OVERLAY}/apps
     DIRECTORIO_SECRETS_NAMESPACE=../../${MI_OVERLAY}/secrets
 
     reemplazar_apps_namespace "$DIRECTORIO_APPS_NAMESPACE"
