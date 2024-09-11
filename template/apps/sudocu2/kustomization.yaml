@@ -8,8 +8,6 @@ components:
   - config
   - secrets
 
-namespace: template-universidad
-
 configMapGenerator:
   - name: global.env
     literals:

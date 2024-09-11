@@ -5,3 +5,6 @@ configMapGenerator:
     envs:
       - pilaga.env
     behavior: merge
+
+components:
+  - namespace

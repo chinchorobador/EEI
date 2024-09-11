@@ -4,5 +4,4 @@ resources:
 components:
   - config
   - secrets
-  - ../../common/namespace
   - ../../common/ingress

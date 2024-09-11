@@ -1,7 +1,7 @@
 #!/bin/bash
 
-reemplazar_common_namespace(){
-    find "$DIRECTORIO_COMMON_NAMESPACE" -type f -name "*.yaml" | while read -r archivo; do
+reemplazar_apps_namespace(){
+    find "$DIRECTORIO_APPS_NAMESPACE" \( -path "*/config/namespace/*.yaml" -o -path "*/namespace/*.yaml" \) | while read -r archivo; do
         sed -i "s/template-universidad/$MI_NAMESPACE/g" "$archivo"
     done
 }

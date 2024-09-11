@@ -10,3 +10,6 @@ configMapGenerator:
       - application.properties
       - firma.png
     behavior: merge
+
+components:
+  - namespace

@@ -5,3 +5,6 @@ configMapGenerator:
     envs:
       - guarani-gestion.env
     behavior: merge
+
+components:
+  - namespace

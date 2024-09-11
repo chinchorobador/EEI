@@ -10,3 +10,6 @@ configMapGenerator:
       - config-sudocu-mpc.json
       - config-sudocu-mpd.json
     behavior: merge
+
+components:
+  - namespace

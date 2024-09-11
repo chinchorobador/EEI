@@ -5,3 +5,6 @@ configMapGenerator:
     envs:
       - kolla.env
     behavior: merge
+
+components:
+  - namespace
