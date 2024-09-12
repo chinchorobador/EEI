@@ -5,3 +5,4 @@ components:
   - ../../../apps/documentos/config
   - ../../../apps/documentos/secrets
   - ../../../common
+  - ../../../apps/documentos/namespace

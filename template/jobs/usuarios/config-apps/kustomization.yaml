@@ -6,3 +6,4 @@ components:
   - ../../../apps/usuarios/secrets
   - aplicaciones
   - ../../../common
+  - ../../../apps/usuarios/namespace

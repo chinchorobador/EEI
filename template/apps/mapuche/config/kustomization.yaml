@@ -5,6 +5,3 @@ configMapGenerator:
     envs:
       - mapuche.env
     behavior: merge
-
-components:
-  - namespace

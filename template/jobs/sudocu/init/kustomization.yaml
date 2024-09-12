@@ -5,3 +5,4 @@ components:
   - ../../../apps/sudocu/config
   - ../../../apps/sudocu/secrets
   - ../../../common
+  - ../../../apps/sudocu/namespace

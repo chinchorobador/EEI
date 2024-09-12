@@ -13,6 +13,3 @@ configMapGenerator:
     envs:
       - usuarios-idp.env
     behavior: merge
-
-components:
-  - namespace

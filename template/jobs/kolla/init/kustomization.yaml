@@ -5,3 +5,4 @@ components:
   - ../../../apps/kolla/config
   - ../../../apps/kolla/secrets
   - ../../../common
+  - ../../../apps/kolla/namespace

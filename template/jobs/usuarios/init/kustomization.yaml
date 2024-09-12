@@ -5,3 +5,4 @@ components:
   - ../../../apps/usuarios/config
   - ../../../apps/usuarios/secrets
   - ../../../common
+  - ../../../apps/usuarios/namespace

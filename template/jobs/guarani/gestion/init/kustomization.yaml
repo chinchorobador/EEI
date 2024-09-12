@@ -5,3 +5,4 @@ components:
   - ../../../../apps/guarani/gestion/config
   - ../../../../apps/guarani/gestion/secrets
   - ../../../../common
+  - ../../../../apps/guarani/namespace

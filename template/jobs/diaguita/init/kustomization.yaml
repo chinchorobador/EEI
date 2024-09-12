@@ -3,5 +3,6 @@ resources:
 
 components:
   - ../../../apps/diaguita/config
-#  - ../../../apps/diaguita/secrets
+  - ../../../apps/diaguita/secrets
   - ../../../common
+  - ../../../apps/diaguita/namespace

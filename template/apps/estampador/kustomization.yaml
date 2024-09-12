@@ -4,4 +4,6 @@ resources:
 components:
   - config
   - secrets
+  - ../../secrets
   - ../../common
+  - namespace

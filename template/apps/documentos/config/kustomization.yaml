@@ -5,6 +5,3 @@ configMapGenerator:
     envs:
       - docs.env
     behavior: merge
-
-components:
-  - namespace

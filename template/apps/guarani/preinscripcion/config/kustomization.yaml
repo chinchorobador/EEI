@@ -5,6 +5,3 @@ configMapGenerator:
     envs:
       - guarani-preinscripcion.env
     behavior: merge
-
-components:
-  - namespace

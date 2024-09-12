@@ -24,6 +24,3 @@ configMapGenerator:
   #   envs:
   #     - worker.env
   #   behavior: merge
-
-components:
-  - namespace

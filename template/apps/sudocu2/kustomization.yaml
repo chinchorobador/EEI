@@ -7,6 +7,8 @@ nameSuffix: -v2
 components:
   - config
   - secrets
+  - ../../secrets
+  - namespace
 
 configMapGenerator:
   - name: global.env

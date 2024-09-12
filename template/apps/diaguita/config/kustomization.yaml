@@ -5,6 +5,3 @@ configMapGenerator:
     envs:
       - diaguita.env
     behavior: merge
-
-components:
-  - namespace

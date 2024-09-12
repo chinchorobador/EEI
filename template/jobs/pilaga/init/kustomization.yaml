@@ -5,3 +5,4 @@ components:
   - ../../../apps/pilaga/config
   - ../../../apps/pilaga/secrets
   - ../../../common
+  - ../../../apps/pilaga/namespace

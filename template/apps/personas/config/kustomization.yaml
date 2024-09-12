@@ -9,6 +9,3 @@ configMapGenerator:
     envs:
       - personas-api.env
     behavior: merge
-
-components:
-  - namespace

@@ -2,5 +2,6 @@ resources:
   - ../../../siu-k8s/base-siu/validador
 
 components:
-  - namespace
+  - ../../secrets
   - ../../common
+  - namespace

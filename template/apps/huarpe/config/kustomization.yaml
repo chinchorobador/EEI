@@ -5,6 +5,3 @@ configMapGenerator:
     envs:
       - huarpe.env
     behavior: merge
-
-components:
-  - namespace
