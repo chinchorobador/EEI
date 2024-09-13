@@ -51,14 +51,15 @@ if [ -d "$DIRECTORIO" ]; then
     echo "B: Borrar"
     while true; do
         read -p "Elige tu opción: " opt
+        opt=$(echo $opt | tr '[:upper:]' '[:lower:]')
         case $opt in 
-            "R") echo "Se sobrescribe la carpeta $MI_OVERLAY. Si ya tiene pods desplegados en el namespace $MI_NAMESPACE debe analizar de eliminarlos"
+            "r") echo "Se sobrescribe la carpeta $MI_OVERLAY. Si ya tiene pods desplegados en el namespace $MI_NAMESPACE debe analizar de eliminarlos"
             creacion_overlay
             break;;
-            "N") mv ../../${MI_OVERLAY}/ ../../OLD_${MI_OVERLAY}/
+            "n") mv ../../${MI_OVERLAY}/ ../../OLD_${MI_OVERLAY}/
             echo "Se ha renombrado el overlay anterior"        
             break;;
-            "B") rm -R ../../${MI_OVERLAY}/
+            "b") rm -R ../../${MI_OVERLAY}/
             echo "Se ha borrado la carpeta del overlay"
             exit;;
         esac
