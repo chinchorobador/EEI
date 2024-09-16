@@ -5,3 +5,7 @@ configMapGenerator:
     envs:
       - mapuche.env
     behavior: merge
+  - name: mapuche
+    files:
+      - ../../../common/certs/certificado_idp.crt
+    behavior: create

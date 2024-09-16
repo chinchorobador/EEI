@@ -13,3 +13,7 @@ configMapGenerator:
     envs:
       - usuarios-idp.env
     behavior: merge
+  - name: usuarios
+    files:
+      - ../../../common/certs/certificado_idp.crt
+    behavior: create

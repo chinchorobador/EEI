@@ -5,3 +5,7 @@ configMapGenerator:
     envs:
       - guarani-autogestion.env
     behavior: merge
+  - name: guarani-autogestion
+    files:
+      - ../../../../common/certs/certificado_idp.crt
+    behavior: create

@@ -5,3 +5,7 @@ configMapGenerator:
     envs:
       - kolla.env
     behavior: merge
+  - name: kolla
+    files:
+      - ../../../common/certs/certificado_idp.crt
+    behavior: create

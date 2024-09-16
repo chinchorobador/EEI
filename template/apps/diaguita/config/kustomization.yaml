@@ -5,3 +5,7 @@ configMapGenerator:
     envs:
       - diaguita.env
     behavior: merge
+  - name: diaguita
+    files:
+      - ../../../common/certs/certificado_idp.crt
+    behavior: create
