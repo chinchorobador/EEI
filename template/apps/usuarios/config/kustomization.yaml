@@ -17,3 +17,7 @@ configMapGenerator:
     files:
       - ../../../common/certs/certificado_idp.crt
     behavior: create
+  - name: usuarios-idp-oidc-cert
+    files:
+      - ../../../common/certs/oidc_module.crt
+    behavior: create

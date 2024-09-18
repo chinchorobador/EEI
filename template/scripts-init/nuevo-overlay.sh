@@ -39,6 +39,8 @@ creacion_overlay(){
 
     DIRECTORIO_APPS_NAMESPACE=../../${MI_OVERLAY}/apps
     reemplazar_apps_namespace "$DIRECTORIO_APPS_NAMESPACE"
+    DIRECTORIO_SERVICES_NAMESPACE=../../${MI_OVERLAY}/services
+    reemplazar_services_namespace "$DIRECTORIO_SERVICES_NAMESPACE"
     
     echo -e "\Se ha creado el overlay $MI_OVERLAY"
 }
