@@ -11,3 +11,7 @@ configMapGenerator:
       - config-sudocu-mpd.json
       - ../../../common/certs/certificado_idp.crt
     behavior: merge
+  - name: cache-config
+    files:
+      - config-cache.conf
+    behavior: merge

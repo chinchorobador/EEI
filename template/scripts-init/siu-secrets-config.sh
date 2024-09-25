@@ -80,6 +80,9 @@ generar_secrets(){
     export USUARIOS_IDP_CLAVE_CONSOLA=$(eval ${PWDGEN})
     export USUARIOS_SEGURIDAD_ALGORITMO_SALT=$(eval ${PWDGEN})
 
+    export RECAPTCHA_SITIO_PASSWORD=6LeIxAcTAAAGETMEFROMRECAPTCHASITE
+    export RECAPTCHA_CLAVE_PASSWORD=6LeIxAcTAAAAAGG-GETMEFROMWEBBEFORE
+
     # export DOCS_STAMPER_KEYSTORE_PASS=$(eval ${PWDGEN})
     export DOCS_STAMPER_KEYSTORE_PASS=1234
     # Crear el keystore para el stamper usando mkcert y openssl
