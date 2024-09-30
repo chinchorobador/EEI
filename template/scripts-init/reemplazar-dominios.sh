@@ -14,11 +14,12 @@ reemplazar_dominios() {
     done
 }
 
-reemplazar_dominios_huarpe_env() {
+reemplazar_dominios_huarpe_proveedor_env() {
+    local DIRECTORIO_ENV="$1"
     # escapar caracteres
     MI_DOMINIO_ESCAPADO=$(printf '%s\n' "$MI_DOMINIO" | sed -e 's/[]\/$*.^[]/\\\\&/g')
-    # huarpe/env
-    find "$DIRECTORIO_APPS_HUARPE_ENV" -type f -name "*.env" | while read -r archivo; do
+    # huarpe-proveedor/env
+    find "$DIRECTORIO_ENV" -type f -name "*.env" | while read -r archivo; do
         sed -i 's/uunn\\.local/'"$MI_DOMINIO_ESCAPADO"'/g' "$archivo"
     done
 }

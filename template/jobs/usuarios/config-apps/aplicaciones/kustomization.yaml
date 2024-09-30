@@ -13,6 +13,7 @@ configMapGenerator:
       - pilaga.json
       - usuarios.json
       - sudocu.json
+      - proveedores.json
   - name: iconos
     files:
       - iconos/diaguita.png
@@ -23,3 +24,4 @@ configMapGenerator:
       - iconos/pilaga.png
       - iconos/usuarios.png
       - iconos/sudocu.png
+      - iconos/proveedores.png

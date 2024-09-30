@@ -20,12 +20,14 @@ creacion_overlay(){
     DIRECTORIO_APPS=../../${MI_OVERLAY}/apps
     DIRECTORIO_INGRESS=../../${MI_OVERLAY}/common/ingress
     DIRECTORIO_APPS_HUARPE_ENV=../../${MI_OVERLAY}/apps/huarpe/config
+    DIRECTORIO_APPS_PROVEEDOR_ENV=../../${MI_OVERLAY}/apps/proveedores/config
     DIRECTORIO_CONFIG_APPS=../../${MI_OVERLAY}/jobs/usuarios/config-apps/aplicaciones
     
     reemplazar_dominios_apps "$DIRECTORIO_APPS"
     reemplazar_dominios "$DIRECTORIO_INGRESS"
     reemplazar_dominios "$DIRECTORIO_CONFIG_APPS"
-    reemplazar_dominios_huarpe_env "$DIRECTORIO_APPS_HUARPE_ENV"
+    reemplazar_dominios_huarpe_proveedor_env "$DIRECTORIO_APPS_HUARPE_ENV"
+    reemplazar_dominios_huarpe_proveedor_env "$DIRECTORIO_APPS_PROVEEDOR_ENV"
 
     SECRETS_DIR=../../${MI_OVERLAY}/secrets
 
