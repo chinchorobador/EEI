@@ -18,7 +18,12 @@ patches:
         value: letsencrypt
       - op: add
         path: /metadata/annotations/nginx.ingress.kubernetes.io~1enable-modsecurity
-        value: false
+        value: true
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1modsecurity-snippet
+        value: |
+          SecRuleEngine On
+          SecRequestBodyAccess On
   - target:
       kind: Ingress
       name: docs-backend|usuarios-api|presonas-api
