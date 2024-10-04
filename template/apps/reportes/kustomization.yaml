@@ -1,0 +1,9 @@
+resources:
+  - ../../../siu-k8s/base-siu/reportes/1.3.0
+
+components:
+  - config
+  - secrets
+  - ../../secrets
+  - ../../common
+  - namespace

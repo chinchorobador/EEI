@@ -1,0 +1,11 @@
+kind: Component
+
+configMapGenerator:
+  - name: reportes-api.env
+    envs:
+      - reportes-api.env
+    behavior: merge
+  - name: reportes.jasper.env
+    envs:
+      - reportes.jasper.env
+    behavior: merge
