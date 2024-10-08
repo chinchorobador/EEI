@@ -14,6 +14,6 @@
             "SingleLogoutService": "https://uunn.local/proveedor/saml/logout"
         }
     },
-    "permite_acceso_sin_cuenta": "true",
+    "permite_acceso_sin_cuenta": "false",
     "icono": "proveedores.png"
 }

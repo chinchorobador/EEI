@@ -1,7 +1,10 @@
 kind: Component
 
 configMapGenerator:
-
+  - name: sudocu
+    envs:
+      - sudocu.env
+    behavior: merge 
   - name: sudocu-config
     files:
       - config-api-server.json

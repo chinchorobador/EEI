@@ -86,15 +86,15 @@
     "_adjuntos": "Puede ser filesystem/bucketName",
     "adjuntos": "filesystem",
     "arai": {
-      "url_notificacion": "http://sudocu-api-server:8080/integracion/notificacion",
-      "url": "http://docs-api/docs/rest/backend/documentos",
+      "url_notificacion": "http://sudocu-api-server.template-universidad:8080/integracion/notificacion",
+      "url": "http://docs-api.template-universidad/docs/rest/backend/documentos",
       "username": "documentos",
       "id_instalacion": "sudocu"
     }
   },
   "firma": {
     "modelo_autorizacion": "siu",
-    "api": "http://docs-api/docs/rest/backend",
+    "api": "http://docs-api.template-universidad/docs/rest/backend",
     "api_front": "https://uunn.local/docs/rest/frontend",
     "username": "documentos"
   },
