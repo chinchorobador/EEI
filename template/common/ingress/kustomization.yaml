@@ -24,6 +24,11 @@ patches:
         value: |
           SecRuleEngine On
           SecRequestBodyAccess On
+          SecRule REQUEST_URI "@beginsWith /usuarios/aplicacion.php" "id:1001,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/usuarios/" "id:1002,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/auth/areaDefault" "id:1003,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/v1/documento" "id:1004,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/tipos_documento/" "id:1005,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
   - target:
       kind: Ingress
       name: docs-backend|usuarios-api|presonas-api
