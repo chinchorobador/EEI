@@ -1,8 +1,0 @@
-resources:
-  - ../../../../../siu-k8s/base-siu/guarani/preinscripcion/jobs/init
-
-components:
-  - ../../../../apps/guarani/preinscripcion/config
-  - ../../../../apps/guarani/preinscripcion/secrets
-  - ../../../../common
-  - ../../../../apps/guarani/namespace

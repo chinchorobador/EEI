@@ -58,20 +58,8 @@ export API_USUARIOS_PASSWORD=$(eval ${PWDGEN})
 export API_SUDOCU_USERNAME=integracion
 export API_SUDOCU_PASSWORD=$(eval ${PWDGEN})
 
-export API_DIAGUITA_USERNAME=diaguita
-export API_DIAGUITA_PASSWORD=$(eval ${PWDGEN})
-export API_GUARANI_USERNAME=guarani
-export API_GUARANI_PASSWORD=$(eval ${PWDGEN})
-export API_KOLLA_USERNAME=kolla
-export API_KOLLA_PASSWORD=$(eval ${PWDGEN})
-export API_MAPUCHE_USERNAME=mapuche
-export API_MAPUCHE_PASSWORD=$(eval ${PWDGEN})
-export API_PILAGA_USERNAME=pilaga
-export API_PILAGA_PASSWORD=$(eval ${PWDGEN})
 export API_PROVEEDORES_USERNAME=proveedores
 export API_PROVEEDORES_PASSWORD=$(eval ${PWDGEN})
-export API_GUARANI_USERNAME=guarani
-export API_GUARANI_PASSWORD=$(eval ${PWDGEN})
 
 export API_FIRMAR_USERNAME=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 export API_FIRMAR_PASSWORD=
@@ -135,72 +123,3 @@ store_secret_in_vault expedientes/data/${DIR_SECRETS}/sudocu-api-secret \
     "firma_password=${API_DOCS_PASSWORD}" \
     "db_password=${POSTGRES_PASSWORD}" \
     "redis_options_password=redis"
-
-
-########  Satelites  ########
-
-# Diaguita
-store_secret_in_vault expedientes/data/${DIR_SECRETS}/diaguita \
-    PROYECTO_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    TOBA_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    ARAI_PROV_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    API_BASIC_CLIENTES=[[\"${API_DIAGUITA_USERNAME}\",\"${API_DIAGUITA_PASSWORD}\"]] \
-    DOCUMENTOS_CLAVE=${API_DOCS_PASSWORD} \
-    CREDENCIALES_API_BASIC_REST_ARAI_USUARIOS=[[\"${API_USUARIOS_USERNAME}\",\"${API_USUARIOS_PASSWORD}\",\"http://usuarios-api/api/v1/\"]] \
-    CREDENCIALES_API_BASIC_MAPUCHE=[[\"${API_MAPUCHE_USERNAME}\",\"${API_MAPUCHE_PASSWORD}\",\"http://mapuche/mapuche/rest/v1/\"]] \
-    CREDENCIALES_API_BASIC_PILAGA=[[\"${API_PILAGA_USERNAME}\",\"${API_PILAGA_PASSWORD}\",\"http://pilaga/pilaga/rest/v1/\"]] 
-
-# Kolla
-store_secret_in_vault expedientes/data/${DIR_SECRETS}/kolla \
-    PROYECTO_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    TOBA_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    API_BASIC_CLIENTES=[[\"${API_KOLLA_USERNAME}\",\"${API_KOLLA_PASSWORD}\"]]
-
-# Mapuche
-store_secret_in_vault expedientes/data/${DIR_SECRETS}/mapuche \
-    PROYECTO_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    TOBA_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    API_BASIC_CLIENTES=[[\"${API_MAPUCHE_USERNAME}\",\"${API_MAPUCHE_PASSWORD}\"]] \
-    DOCUMENTOS_CLAVE=${API_DOCS_PASSWORD} \
-    CREDENCIALES_API_BASIC_REST_ARAI_USUARIOS=[[\"${API_USUARIOS_USERNAME}\",\"${API_USUARIOS_PASSWORD}\",\"http://usuarios-api/api/v1/\"]] \
-    CREDENCIALES_API_BASIC_DIAGUITA=[[\"${API_DIAGUITA_USERNAME}\",\"${API_DIAGUITA_PASSWORD}\",\"http://diaguita/diaguita/rest/v1/\"]] \
-    CREDENCIALES_API_BASIC_GUARANI=[[\"${API_GUARANI_USERNAME}\",\"${API_GUARANI_PASSWORD}\",\"http://guarani-gestion/gestion/rest/v1/\"]] \
-    CREDENCIALES_API_BASIC_PILAGA=[[\"${API_PILAGA_USERNAME}\",\"${API_PILAGA_PASSWORD}\",\"http://pilaga/pilaga/rest/v1/\"]]
-
-# Pilaga
-store_secret_in_vault expedientes/data/${DIR_SECRETS}/pilaga \
-    PROYECTO_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    TOBA_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    ARAI_PROV_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    API_BASIC_CLIENTES=[[\"${API_PILAGA_USERNAME}\",\"${API_PILAGA_PASSWORD}\"]] \
-    DOCUMENTOS_CLAVE=${API_DOCS_PASSWORD} \
-    CREDENCIALES_API_BASIC_REST_ARAI_USUARIOS=[[\"${API_USUARIOS_USERNAME}\",\"${API_USUARIOS_PASSWORD}\",\"http://usuarios-api/api/v1/\"]] \
-    CREDENCIALES_API_BASIC_DIAGUITA=[[\"${API_DIAGUITA_USERNAME}\",\"${API_DIAGUITA_PASSWORD}\",\"http://diaguita/diaguita/rest/v1/\"]] \
-    CREDENCIALES_API_BASIC_GUARANI=[[\"${API_GUARANI_USERNAME}\",\"${API_GUARANI_PASSWORD}\",\"http://guarani-gestion/guarani/gestion/rest/v1/\"]] \
-    CREDENCIALES_API_BASIC_MAPUCHE=[[\"${API_MAPUCHE_USERNAME}\",\"${API_MAPUCHE_PASSWORD}\",\"http://mapuche/mapuche/rest/v1/\"]]
-
-# Guarani
-# Guarani-gestion
-store_secret_in_vault expedientes/data/${DIR_SECRETS}/guarani-gestion \
-    PROYECTO_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    TOBA_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    PREINSCRIPCION_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    API_BASIC_CLIENTES=[[\"${API_GUARANI_USERNAME}\",\"${API_GUARANI_PASSWORD}\"]] \
-    DOCUMENTOS_CLAVE=${API_DOCS_PASSWORD} \
-    CREDENCIALES_API_BASIC_ARAI_USUARIOS=[[\"${API_USUARIOS_USERNAME}\",\"${API_USUARIOS_PASSWORD}\",\"http://usuarios-api/api/v1/\"]] \
-    CREDENCIALES_API_BASIC_KOLLA=[[\"${API_KOLLA_USERNAME}\",\"${API_KOLLA_PASSWORD}\",\"http://kolla/kolla/rest/\"]]
-
-# Guarani-autogestion
-store_secret_in_vault expedientes/data/${DIR_SECRETS}/guarani-autogestion \
-    RDI_CLAVE=${NUXEO_PASSWORD} \
-    GESTION_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    REST_GESTION_PASSWORD=${API_GUARANI_PASSWORD} \
-    REST_ARAI_USUARIOS_PASSWORD=${API_USUARIOS_PASSWORD} \
-    REST_KOLLA_PASSWORD=${API_KOLLA_PASSWORD} \
-    DOCUMENTOS_CLAVE=${API_DOCS_PASSWORD}
-
-# Guarani-preinscripcion
-store_secret_in_vault expedientes/data/${DIR_SECRETS}/guarani-preinscripcion \
-    RDI_CLAVE=${NUXEO_PASSWORD} \
-    PREINSCRIPCION_DB_PASSWORD=${POSTGRES_PASSWORD} \
-    GESTION_DB_PASSWORD=${POSTGRES_PASSWORD}

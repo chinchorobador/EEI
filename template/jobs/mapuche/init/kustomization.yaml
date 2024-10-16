@@ -1,8 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-siu/mapuche/3.24.0/jobs/init
-
-components:
-  - ../../../apps/mapuche/config
-  - ../../../apps/mapuche/secrets
-  - ../../../common
-  - ../../../apps/mapuche/namespace

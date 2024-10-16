@@ -1,6 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-siu/diaguita/3.5.0/jobs/init
-
-components:
-  - ../../../apps/diaguita/config
-  - ../../../common

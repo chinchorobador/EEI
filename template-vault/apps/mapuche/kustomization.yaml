@@ -1,6 +1,0 @@
-resources:
-  - ../../../siu-k8s/base-siu/mapuche/3.24.0
-
-components:
-  - config
-  - ../../common

@@ -1,6 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-siu/pilaga/3.15.3/jobs/init
-
-components:
-  - ../../../apps/pilaga/config
-  - ../../../common

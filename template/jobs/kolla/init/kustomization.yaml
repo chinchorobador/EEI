@@ -1,8 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-siu/kolla/4.8.2/jobs/init
-
-components:
-  - ../../../apps/kolla/config
-  - ../../../apps/kolla/secrets
-  - ../../../common
-  - ../../../apps/kolla/namespace

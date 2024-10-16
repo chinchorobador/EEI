@@ -1,6 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-siu/guarani/preinscripcion
-
-components:
-  - config
-  - ../../../common

@@ -1,7 +1,0 @@
-kind: Component
-
-configMapGenerator:
-  - name: diaguita.env
-    envs:
-      - diaguita.env
-    behavior: merge

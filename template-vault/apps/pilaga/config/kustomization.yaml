@@ -1,7 +1,0 @@
-kind: Component
-
-configMapGenerator:
-  - name: pilaga.env
-    envs:
-      - pilaga.env
-    behavior: merge
