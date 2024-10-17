@@ -1,6 +1,0 @@
-resources:
-  - ../../../siu-k8s/base-dev/minio
-
-components:
-  - ../../common/namespace
-  - ../../common/pvc

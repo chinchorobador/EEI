@@ -1,9 +1,0 @@
-kind: Component
-
-patches:
-  - target:
-      kind: PersistentVolumeClaim
-    patch: |-
-      - op: add
-        path: /spec/storageClassName
-        value: longhorn
