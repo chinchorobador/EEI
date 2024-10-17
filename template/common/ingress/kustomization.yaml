@@ -28,7 +28,11 @@ patches:
           SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/usuarios/" "id:1002,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
           SecRule REQUEST_URI "@beginsWith /sudocu/api/auth/areaDefault" "id:1003,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
           SecRule REQUEST_URI "@beginsWith /sudocu/api/v1/documento" "id:1004,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
-          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/tipos_documento/" "id:1005,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /avatar/upload" "id:1005,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/auth/saml/callback" "id:1006,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/tipos_documento/" "id:1007,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/v1/authorization/authorize" "id:1008,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/documentos/anular" "id:1009,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
   - target:
       kind: Ingress
       name: docs-backend|usuarios-api|presonas-api
