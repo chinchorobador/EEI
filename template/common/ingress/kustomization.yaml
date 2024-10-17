@@ -33,6 +33,9 @@ patches:
           SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/tipos_documento/" "id:1007,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
           SecRule REQUEST_URI "@beginsWith /sudocu/api/v1/authorization/authorize" "id:1008,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
           SecRule REQUEST_URI "@beginsWith /sudocu/api/documentos/anular" "id:1009,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1proxy-body-size
+        value: "10m"
   - target:
       kind: Ingress
       name: docs-backend|usuarios-api|presonas-api
