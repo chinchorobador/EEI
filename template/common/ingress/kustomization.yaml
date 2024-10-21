@@ -44,7 +44,7 @@ patches:
         value: "10m"
   - target:
       kind: Ingress
-      name: docs-backend|usuarios-api|presonas-api
+      name: docs-backend|usuarios-api|personas-api
     patch: |-
       - op: add
         path: /metadata/annotations/nginx.ingress.kubernetes.io~1whitelist-source-range
