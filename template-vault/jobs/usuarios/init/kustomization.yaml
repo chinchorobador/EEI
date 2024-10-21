@@ -1,6 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-eei/1.7.2/arai/usuarios/jobs/init
-
-components:
-  - ../../../apps/usuarios/config
-  - ../../../common

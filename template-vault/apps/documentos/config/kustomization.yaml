@@ -1,7 +1,0 @@
-kind: Component
-
-configMapGenerator:
-  - name: docs.env
-    envs:
-      - docs.env
-    behavior: merge

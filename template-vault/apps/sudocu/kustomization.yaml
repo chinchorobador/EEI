@@ -1,6 +1,0 @@
-resources:
-  - ../../../siu-k8s/base-eei/1.7.2/sudocu
-
-components:
-  - config
-  - ../../common

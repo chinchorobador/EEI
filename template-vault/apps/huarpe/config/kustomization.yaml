@@ -1,8 +1,0 @@
-kind: Component
-
-configMapGenerator:
-  - name: huarpe.env
-    envs:
-      - huarpe.env
-    behavior: merge
-
