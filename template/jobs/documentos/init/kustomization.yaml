@@ -1,5 +1,5 @@
 resources:
-  - ../../../../siu-k8s/base-eei/1.8.1/arai/documentos/jobs/init
+  - ../../../../siu-k8s/base-eei/1.8.2/arai/documentos/jobs/init
 
 components:
   - ../../../apps/documentos/config
