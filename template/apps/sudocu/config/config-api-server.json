@@ -265,6 +265,12 @@
     }
   },
   "gestion": {
+    "inbox_jobs_viewer": {
+      "mostrar_total_usuario_creacion": false,
+      "mostrar_total_usuario_autorizacion": false,
+      "mostrar_total_general": false
+    },
+    "mostrar_id_documento_listado": false,
     "_fecha_manual_documento": "Permite la modificación de la fecha de creación en documentos (true: permite)",
     "fecha_manual_documento": true,
     "_fecha_manual_contenedor_tramite": "Permite la modificación de la fecha de creación en contenedores y trámites (true: permite)",

@@ -1,5 +1,5 @@
 resources:
-  - ../../../siu-k8s/base-siu/proveedores/2.0.2
+  - ../../../siu-k8s/base-eei/1.8.2/proveedores
 
 components:
   - config
