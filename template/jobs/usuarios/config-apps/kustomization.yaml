@@ -1,5 +1,5 @@
 resources:
-  - ../../../../siu-k8s/base-eei/1.8.2/arai/usuarios/jobs/config-apps
+  - ../../../../siu-k8s/base-eei/1.8.3/arai/usuarios/jobs/config-apps
 
 components:
   - ../../../apps/usuarios/config
