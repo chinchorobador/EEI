@@ -1,5 +1,5 @@
 resources:
-  - ../../../siu-k8s/base-eei/1.9.0/arai/huarpe
+  - ../../../siu-k8s/base-eei/1.9.0/arai/solicitudes
 
 components:
   - config

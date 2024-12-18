@@ -1,3 +1,3 @@
 [submodule "siu-k8s"]
 	path = siu-k8s
-	url = https://hub.siu.edu.ar/siu/kubernetes/siu-k8s.git
+	url = https://gitlab.siu.edu.ar/devops/siu-k8s.git

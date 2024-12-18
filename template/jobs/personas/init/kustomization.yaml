@@ -1,5 +1,5 @@
 resources:
-  - ../../../../siu-k8s/base-eei/1.8.3/arai/personas/jobs/init
+  - ../../../../siu-k8s/base-eei/1.9.0/arai/personas/jobs/init
 
 components:
   - ../../../apps/personas/config
