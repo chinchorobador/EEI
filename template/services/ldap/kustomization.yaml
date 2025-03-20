@@ -4,6 +4,7 @@ resources:
 components:
   - ../../common/pvc
   - namespace
+  - config
 
 secretGenerator:
   - name: ldap
