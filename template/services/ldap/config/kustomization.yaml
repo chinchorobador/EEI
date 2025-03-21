@@ -1,0 +1,11 @@
+kind: Component
+
+configMapGenerator:
+  - name: ldap.env
+    envs:
+      - ldap.env
+    behavior: merge
+  - name: ldap
+    files:
+      - 01-estructuraUsuarios.ldif
+    behavior: merge

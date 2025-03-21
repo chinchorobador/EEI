@@ -275,6 +275,11 @@
     "fecha_manual_documento": true,
     "_fecha_manual_contenedor_tramite": "Permite la modificación de la fecha de creación en contenedores y trámites (true: permite)",
     "fecha_manual_contenedor_tramite": true,
+    "mostrar_contenido_documento_adjunto_principal": false,
+    "_limite_herramienta_mapa": "Limita la cantidad de eventos del documento que debe tener para ser visible desde la herramienta mapa",
+    "limite_herramienta_mapa": 20,
+    "_limite_incorporados": "Limita la cantidad de incorporados que se mostrarÃ¡n en el formulario de ediciÃ³n de documento y la herramienta de vista de documento",
+    "limite_incorporados": 10,  
     "permite_eliminar_seguimientos_anular_rechazar": false,
     "_mensaje_confirmacion_contenedor": "siempre/nunca",
     "mensaje_confirmacion_contenedor": "nunca",
@@ -394,6 +399,11 @@
     "service": {
       "target": "",
       "auth": "user:password"
+    }
+  },
+  "queue": {
+    "express": {
+      "concurrency": 1
     }
   }
 }

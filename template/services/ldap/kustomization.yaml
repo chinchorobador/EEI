@@ -4,8 +4,17 @@ resources:
 components:
   - ../../common/pvc
   - namespace
+  - config
 
 secretGenerator:
   - name: ldap
     envs:
       - ../../secrets/ldap-secrets.env
+
+patches:
+  - path: patches/pvc-storage-patch-data.yaml
+    target:
+      kind: PersistentVolumeClaim
+  - path: patches/pvc-storage-patch-config.yaml
+    target:
+      kind: PersistentVolumeClaim

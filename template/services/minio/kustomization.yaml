@@ -9,3 +9,8 @@ secretGenerator:
   - name: minio
     envs:
       - ../../secrets/minio-secrets.env
+
+patches:
+  - path: patches/pvc-storage-patch.yaml
+    target:
+      kind: PersistentVolumeClaim

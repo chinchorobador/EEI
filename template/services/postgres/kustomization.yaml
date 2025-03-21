@@ -9,3 +9,8 @@ secretGenerator:
   - name: db-siu
     envs:
       - ../../secrets/postgres-secrets.env
+
+patches:
+  - path: patches/pvc-storage-patch.yaml
+    target:
+      kind: PersistentVolumeClaim
