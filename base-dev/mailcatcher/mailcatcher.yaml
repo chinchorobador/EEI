@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailcatcher
+spec:
+  selector:
+    matchLabels:
+      app: mailcatcher
+  template:
+    metadata:
+      labels:
+        app: mailcatcher
+    spec:
+      containers:
+        - name: mailcatcher
+          image: sj26/mailcatcher
+          imagePullPolicy: Always
+          args: [
+            "--ip", "0.0.0.0",
+            "--http-port", "80",
+            "--smtp-port", "25",
+            "--http-path", "/mailcatcher"
+          ]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mailcatcher
+spec:
+  selector:
+    app: mailcatcher
+  ports:
+    - port: 25
+      targetPort: 25
+      name: smtp
+    - port: 80
+      targetPort: 80
+      name: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mailcatcher
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: uunn.local
+      http:
+        paths:
+          - path: /mailcatcher
+            pathType: Prefix
+            backend:
+              service:
+                name: mailcatcher
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - uunn.local
+      secretName: uunn.local
