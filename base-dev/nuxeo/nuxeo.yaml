@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nuxeo
+spec:
+  selector:
+    matchLabels:
+      app: nuxeo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nuxeo
+    spec:
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nuxeo-data
+        - name: config
+          configMap:
+            name: nuxeo
+            defaultMode: 0744
+      # initContainers:
+      #   - name: rsync
+      #     image: ubuntu
+      #     volumeMounts:
+      #       - name: data
+      #         mountPath: /var/lib/nuxeo/data
+      #       - name: config
+      #         mountPath: /root/.kube/config
+      #         subPath: config-admin-unicen
+      #       - name: config
+      #         mountPath: /tmp/config
+      #     command: ["/bin/sh", "-c"]
+      #     args:
+      #       - |
+      #         apt update && apt install -y rsync curl wget screen vim
+      #         wget https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+      #         chmod +x /usr/local/bin/*
+      #         sleep infinity
+      containers:
+        - name: nuxeo
+          image: nuxeo:LTS-2019
+          envFrom:
+            - configMapRef:
+                name: nuxeo.env
+            - secretRef:
+                name: nuxeo
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/nuxeo/data
+            - name: config
+              mountPath: /docker-entrypoint-initnuxeo.d/nuxeo.conf
+              subPath: nuxeo.conf
+            - name: config
+              mountPath: /opt/nuxeo/server/nxserver/bundles/siu-types-1.2.0.jar
+              subPath: siu-types-1.2.0.jar
+          # command: ["/bin/sleep", "infinity"]
+          # command: ["/bin/sh", "-c"]
+          # args:
+          #   - |
+          #     while true; do sleep 10; done
+          #     # /docker-entrypoint.sh
+          resources:
+            requests:
+              cpu: 100m
+              memory: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nuxeo
+spec:
+  selector:
+    app: nuxeo
+  ports:
+    - port: 8080
+      targetPort: 8080

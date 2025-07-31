@@ -1,0 +1,12 @@
+resources:
+  - nuxeo.yaml
+  - nuxeo-pvc.yaml
+
+configMapGenerator:
+  - name: nuxeo.env
+    envs:
+      - config/nuxeo.env
+  - name: nuxeo
+    files:
+      - config/nuxeo.conf
+      - config/siu-types-1.2.0.jar
