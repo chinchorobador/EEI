@@ -1,7 +1,0 @@
-kind: Component
-
-configMapGenerator:
-  - name: notificaciones.env
-    envs:
-      - notificaciones.env
-    behavior: merge

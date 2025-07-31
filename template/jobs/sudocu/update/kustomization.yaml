@@ -1,8 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-eei/1.9.0/sudocu/jobs/update
-
-components:
-  - ../../../apps/sudocu/config
-  - ../../../apps/sudocu/secrets
-  - ../../../common
-  - ../../../apps/sudocu/namespace
