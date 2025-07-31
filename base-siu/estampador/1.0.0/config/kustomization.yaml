@@ -1,0 +1,11 @@
+kind: Component
+
+configMapGenerator:
+  - name: docs-stamper.env
+    envs:
+      - docs-stamper.env
+  - name: docs-stamper
+    files:
+      - docs_stamper_entrypoint.sh
+      - application.properties
+      - firma.png
