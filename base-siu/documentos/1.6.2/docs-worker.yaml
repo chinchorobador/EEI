@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docs-worker
+spec:
+  selector:
+    matchLabels:
+      app: docs-worker
+  template:
+    metadata:
+      labels:
+        app: docs-worker
+    spec:
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: secrets
+          secret:
+            secretName: docs
+      containers:
+        - name: docs-worker
+          image: hub.siu.edu.ar:5005/siu/expedientes/docs-api:v1.6.2
+          envFrom:
+            - configMapRef:
+                name: docs.env
+          env:
+            - name: ARAI_DOCS_S3_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: docs
+                  key: ARAI_DOCS_S3_SECRET
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/entrypoint.sh", "--reconfigure", "--no-validar-servicios", "--worker-mode"]
+          resources:
+            requests:
+              memory: 50Mi

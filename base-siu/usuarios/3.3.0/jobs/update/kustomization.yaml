@@ -1,0 +1,5 @@
+resources:
+  - usuarios-actualizar-base.yaml
+
+components:
+  - ../../config

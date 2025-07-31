@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: solicitudes-crear-base
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: secrets
+          secret:
+            secretName: solicitudes
+            defaultMode: 0600
+      securityContext:
+        fsGroup: 222
+      initContainers:
+        - name: verificar-conexion-postgres
+          image: postgres:13
+          envFrom:
+            - configMapRef:
+                name: solicitudes.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export PGPASSWORD=$(cat ${ARAI_SOLICITUDES_DB_PASSWORD_FILE})
+              until pg_isready -h ${ARAI_SOLICITUDES_DB_HOST} -U ${ARAI_SOLICITUDES_DB_USERNAME} > /dev/null 2>&1
+              do
+                echo "Esperando a que ${ARAI_SOLICITUDES_DB_HOST} acepte conexiones"
+                sleep 5
+              done
+              echo "${ARAI_SOLICITUDES_DB_HOST} está listo"
+      containers:
+        - name: crear-base
+          image: hub.siu.edu.ar:5005/siu/expedientes/arai-solicitudes/db:1.0.0
+          envFrom:
+            - configMapRef:
+                name: solicitudes.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets

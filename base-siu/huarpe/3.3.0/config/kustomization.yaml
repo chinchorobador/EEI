@@ -1,0 +1,10 @@
+kind: Component
+
+configMapGenerator:
+  - name: huarpe.env
+    envs:
+      - huarpe.env
+  - name: huarpe
+    files:
+      - huarpe_framework.yml
+      - huarpe_php.ini

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sudocu-pdf
+spec:
+  selector:
+    matchLabels:
+      app: sudocu-pdf
+  template:
+    metadata:
+      labels:
+        app: sudocu-pdf
+    spec:
+      containers:
+        - name: sudocu-pdf
+          image: browserless/chrome:1.50-chrome-stable
+          env:
+            - name: MAX_CONCURRENT_SESSIONS
+              value: "5"
+            - name: MAX_QUEUE_LENGTH
+              value: "400"
+            - name: PREBOOT_CHROME
+              value: "true"
+          resources:
+            requests:
+              cpu: 50m
+              memory: 600Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sudocu-pdf
+spec:
+  selector:
+    app: sudocu-pdf
+  ports:
+  - port: 3000
+    targetPort: 3000

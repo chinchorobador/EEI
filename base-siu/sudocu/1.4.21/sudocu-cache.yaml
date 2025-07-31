@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sudocu-cache
+spec:
+  selector:
+    matchLabels:
+      app: sudocu-cache
+  template:
+    metadata:
+      labels:
+        app: sudocu-cache
+    spec:
+      volumes:
+      - name: cache-config
+        configMap:
+          name: cache-config
+      containers:
+      - name: sudocu-cache
+        image: redis:6.2.6-alpine
+        env:
+        - name: TZ
+          value: "America/Buenos_Aires"
+        command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--requirepass redis"]
+        resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+        volumeMounts:
+        - name: cache-config
+          mountPath: /usr/local/etc/redis/redis.conf
+          subPath: redis.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sudocu-cache
+spec:
+  selector:
+    app: sudocu-cache
+  ports:
+  - port: 6379
+    targetPort: 6379

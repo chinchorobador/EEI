@@ -1,0 +1,5 @@
+resources:
+  - solicitudes-actualizar-base.yaml
+
+components:
+  - ../../config

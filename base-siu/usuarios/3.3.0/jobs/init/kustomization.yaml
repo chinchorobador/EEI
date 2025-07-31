@@ -1,0 +1,8 @@
+resources:
+  - usuarios-crear-base.yaml
+  - usuarios-crear-usuario.yaml
+  - usuarios-inicializar-personas.yaml
+  - usuarios-inicializar-recursos.yaml
+
+components:
+  - ../../config

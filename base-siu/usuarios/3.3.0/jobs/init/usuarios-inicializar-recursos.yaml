@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: usuarios-inicializar-recursos
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: resources-data
+          persistentVolumeClaim:
+            claimName: usuarios-resources-data
+      initContainers:
+        - name: change-mode
+          image: busybox
+          volumeMounts:
+            - name: resources-data
+              mountPath: /tmp/resources
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              chown -R 222:root /tmp/resources
+              chmod 711 /tmp/resources
+      containers:
+        - name: usuarios-inicializar-recursos
+          image: hub.siu.edu.ar:5005/siu/expedientes/arai-usuarios/idm:v3.3.0
+          envFrom:
+            - configMapRef:
+                name: usuarios.env
+          volumeMounts:
+            - name: resources-data
+              mountPath: /tmp/resources
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              cp -r /usr/local/app/resources/resources /tmp/resources

@@ -1,0 +1,58 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sudocu-crear-base
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: secrets
+          secret:
+            secretName: sudocu
+            defaultMode: 0600
+      initContainers:
+        - name: verificar-conexion
+          image: postgres:13
+          envFrom:
+            - configMapRef:
+                name: sudocu
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export PGPASSWORD=$(cat /var/secrets/SUDOCU_DB_PASSWORD)
+              until pg_isready -h ${SUDOCU_DB_HOST} -U ${SUDOCU_DB_USER} > /dev/null 2>&1
+              do
+                echo "Esperando a que ${SUDOCU_DB_HOST} acepte conexiones"
+                sleep 5
+              done
+              echo "${SUDOCU_DB_HOST} está listo"
+        - name: crear-base
+          image: postgres:13
+          envFrom:
+            - configMapRef:
+                name: sudocu
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export PGPASSWORD=$(cat /var/secrets/SUDOCU_DB_PASSWORD)
+              createdb -h ${SUDOCU_DB_HOST} -U ${SUDOCU_DB_USER} ${SUDOCU_DB_NAME}
+              psql -h ${SUDOCU_DB_HOST} -U ${SUDOCU_DB_USER} ${SUDOCU_DB_NAME} -c "\
+                CREATE SCHEMA sudocu; \
+                ALTER SCHEMA sudocu OWNER TO ${SUDOCU_DB_USER};"
+      containers:
+        - name: inicializar-base
+          image: ungs/sudocu-db-instalador:1.4.17
+          envFrom:
+            - configMapRef:
+                name: sudocu
+            - secretRef:
+                name: sudocu

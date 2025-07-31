@@ -1,0 +1,58 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: personas-crear-base
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: secrets
+          secret:
+            secretName: personas
+            defaultMode: 0600
+      initContainers:
+        - name: verificar-conexion
+          image: postgres:13
+          envFrom:
+            - configMapRef:
+                name: personas.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export PGPASSWORD=$(cat ${DB_PASSWORD_FILE})
+              until pg_isready -h ${DB_HOST} -U ${DB_USERNAME} > /dev/null 2>&1
+              do
+                echo "Esperando a que ${DB_HOST} acepte conexiones"
+                sleep 5
+              done
+              echo "${DB_HOST} está listo"
+        - name: crear-base
+          image: postgres:13
+          envFrom:
+            - configMapRef:
+                name: personas.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export PGPASSWORD=$(cat ${DB_PASSWORD_FILE})
+              createdb -h ${DB_HOST} -U ${DB_USERNAME} ${DB_DBNAME}
+      containers:
+      - name: inicializar-base
+        image: hub.siu.edu.ar:5005/siu/expedientes/arai-personas/db:v1.0.1
+        envFrom:
+          - configMapRef:
+              name: personas.env
+        volumeMounts:
+          - name: secrets
+            mountPath: /var/secrets

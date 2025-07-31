@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notificaciones-worker
+spec:
+  selector:
+    matchLabels:
+      app: notificaciones-worker
+  template:
+    metadata:
+      labels:
+        app: notificaciones-worker
+    spec:
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: secrets
+          secret:
+            secretName: notificaciones
+      containers:
+        - name: notificaciones-worker
+          image: hub.siu.edu.ar:5005/siu/expedientes/arai-notificaciones/worker:v1.1.0
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: notificaciones.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi

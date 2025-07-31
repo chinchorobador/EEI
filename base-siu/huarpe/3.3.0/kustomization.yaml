@@ -1,0 +1,6 @@
+resources:
+  - huarpe.yaml
+  - huarpe-memcached.yaml
+
+components:
+  - config
