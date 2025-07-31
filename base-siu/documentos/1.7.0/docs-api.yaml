@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docs-api
+spec:
+  selector:
+    matchLabels:
+      app: docs-api
+  template:
+    metadata:
+      labels:
+        app: docs-api
+    spec:
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: secrets
+          secret:
+            secretName: docs
+      containers:
+        - name: docs-api
+          image: hub.siu.edu.ar:5005/siu/expedientes/docs-api:v1.7.0
+          envFrom:
+            - configMapRef:
+                name: docs.env
+          env:
+            - name: ARAI_DOCS_S3_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: docs
+                  key: ARAI_DOCS_S3_SECRET
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: docs-api
+spec:
+  selector:
+    app: docs-api
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: docs-frontend
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: uunn.local
+      http:
+        paths:
+          - path: /docs/rest/frontend
+            pathType: Prefix
+            backend:
+              service:
+                name: docs-api
+                port:
+                  number: 80
+          - path: /docs/firmador.php
+            pathType: Prefix
+            backend:
+              service:
+                name: docs-api
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - uunn.local
+      secretName: uunn.local
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: docs-backend
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: uunn.local
+      http:
+        paths:
+          - path: /docs/rest/backend
+            pathType: Prefix
+            backend:
+              service:
+                name: docs-api
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - uunn.local
+      secretName: uunn.local

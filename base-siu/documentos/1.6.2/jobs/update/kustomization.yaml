@@ -1,0 +1,5 @@
+resources:
+  - docs-actualizar-base.yaml
+
+components:
+  - ../../config
