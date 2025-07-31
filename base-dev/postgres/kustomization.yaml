@@ -1,9 +1,0 @@
-resources:
-  - postgres.yaml
-  - postgres-pvc.yaml
-
-configMapGenerator:
-  - name: db-siu
-    files:
-      - pg_hba.conf
-      - postgresql.conf
