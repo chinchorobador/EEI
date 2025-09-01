@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sudocu-api-worker
+spec:
+  selector:
+    matchLabels:
+      app: sudocu-api-worker
+  template:
+    metadata:
+      labels:
+        app: sudocu-api-worker
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: sudocu-config
+        - name: secrets
+          secret:
+            secretName: sudocu-config
+        - name: sudocu-files
+          persistentVolumeClaim:
+            claimName: sudocu-files
+        - name: sudocu-tmp
+          persistentVolumeClaim:
+            claimName: sudocu-tmp
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "api-worker"
+      containers:
+        - name: sudocu-api-worker
+          image: ungs/sudocu-api-worker:1.4.21
+          env:
+            - name: TZ
+              value: "America/Buenos_Aires"
+          volumeMounts:
+            - name: config
+              mountPath: /worker/config.json
+              subPath: config-api-server.json
+            - name: secrets
+              mountPath: /run/secrets/sudocu-api-server
+              subPath: sudocu-api-server-secret.json
+            - name: sudocu-files
+              mountPath: /worker/sudocu-files
+            - name: sudocu-tmp
+              mountPath: /sudocu_tmp
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi

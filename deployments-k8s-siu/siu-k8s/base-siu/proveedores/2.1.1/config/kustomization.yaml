@@ -1,0 +1,14 @@
+kind: Component
+
+configMapGenerator:
+  - name: proveedores.env
+    envs:
+      - proveedores.env
+  - name: portal.env
+    envs:
+      - portal.env
+  - name: portal
+    files:
+      - portal_framework.yml
+      - portal_php.ini
+      - portal.conf

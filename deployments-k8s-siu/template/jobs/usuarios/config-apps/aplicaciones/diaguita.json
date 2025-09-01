@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "diaguita",
+        "etiqueta": "SIU-Diaguita",
+        "descripcion": "SIU-Diaguita: Módulo de compras, contrataciones y patrimonio",
+        "url": "https://uunn.local/diaguita",
+        "version": "3.5.0",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://uunn.local/diaguita/default-sp": {
+            "appUniqueId": "diaguita",
+            "AssertionConsumerService": "https://uunn.local/diaguita/?acs",
+            "SingleLogoutService": "https://uunn.local/diaguita/?sls"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "diaguita.png"
+}

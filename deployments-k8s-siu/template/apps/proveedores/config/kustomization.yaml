@@ -1,0 +1,15 @@
+kind: Component
+
+configMapGenerator:
+  - name: proveedores.env
+    envs:
+      - proveedores.env
+    behavior: merge
+  - name: portal.env
+    envs:
+      - portal.env
+    behavior: merge
+  - name: portal
+    files:
+      - ../../../common/certs/certificado_idp.crt
+    behavior: merge

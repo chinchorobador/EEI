@@ -1,0 +1,5 @@
+resources:
+  - personas-crear-base.yaml
+
+components:
+  - ../../config

@@ -1,0 +1,58 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: usuarios-crear-usuario
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: secrets
+          secret:
+            secretName: usuarios
+      securityContext:
+        fsGroup: 222
+      initContainers:
+        - name: verificar-usuarios-api
+          image: linuxserver/yq:3.2.3
+          envFrom:
+            - configMapRef:
+                name: usuarios.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              USER=$(jq .[0][0] < /var/secrets/API_BASIC_CLIENTES | tr -d '"')
+              PASS=$(jq .[0][1] < /var/secrets/API_BASIC_CLIENTES | tr -d '"')
+              until curl http://usuarios-api/api/v2/usuarios --user $USER:$PASS --fail --silent -o /dev/null
+              do
+                echo "Esperando a que usuarios-api acepte conexiones"
+                sleep 5
+              done
+              echo "usuarios-api está listo"
+      containers:
+        - name: crear-usuario
+          image: hub.siu.edu.ar:5005/siu/expedientes/arai-usuarios/idm:v3.3.0
+          envFrom:
+            - configMapRef:
+                name: usuarios.env
+          env:
+            - name: TOBA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: usuarios
+                  key: TOBA_PASSWORD
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              source /siu-entrypoint.d/01-prepare-secrets
+              idm/bin/instalador proyecto:bootstrap --password=${TOBA_PASSWORD} --no-interaction

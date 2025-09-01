@@ -1,0 +1,5 @@
+resources:
+  - usuarios-configurar-aplicaciones.yaml
+
+components:
+  - ../../config

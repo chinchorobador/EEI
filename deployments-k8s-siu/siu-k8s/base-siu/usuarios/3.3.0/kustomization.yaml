@@ -1,0 +1,9 @@
+resources:
+  - usuarios-api.yaml
+  - usuarios-idm.yaml
+  - usuarios-idp.yaml
+  - usuarios-memcached.yaml
+  - usuarios-resources-pvc.yaml
+
+components:
+  - config

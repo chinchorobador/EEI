@@ -1,0 +1,70 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: usuarios-crear-base
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: secrets
+          secret:
+            secretName: usuarios
+            defaultMode: 0600
+      securityContext:
+        fsGroup: 222
+      initContainers:
+        - name: verificar-conexion-postgres
+          image: postgres:13
+          envFrom:
+            - configMapRef:
+                name: usuarios.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export PGPASSWORD=$(cat ${DB_PASSWORD_FILE})
+              until pg_isready -h ${DB_HOST} -U ${DB_USERNAME} > /dev/null 2>&1
+              do
+                echo "Esperando a que ${DB_HOST} acepte conexiones"
+                sleep 5
+              done
+              echo "${DB_HOST} está listo"
+        - name: verificar-conexion-ldap
+          image: osixia/openldap:1.5.0
+          envFrom:
+            - configMapRef:
+                name: usuarios.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export LDAP_BINDPASS=$(cat ${LDAP_BINDPASS_FILE})
+              until ldapsearch -x -H "ldap://${LDAP_HOST}" -b "${LDAP_SEARCHBASE}" -D "${LDAP_BINDUSER}" -w "${LDAP_BINDPASS}" -s sub > /dev/null 2>&1
+              do
+                echo "Esperando a que ${LDAP_HOST} acepte conexiones"
+                sleep 5
+              done
+              echo "${LDAP_HOST} está listo"
+      containers:
+        - name: crear-base
+          image: hub.siu.edu.ar:5005/siu/expedientes/arai-usuarios/idm:v3.3.0
+          envFrom:
+            - configMapRef:
+                name: usuarios.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              source /siu-entrypoint.d/01-prepare-secrets
+              idm/bin/instalador docker:db-inicializar --no-interaction --no-progress

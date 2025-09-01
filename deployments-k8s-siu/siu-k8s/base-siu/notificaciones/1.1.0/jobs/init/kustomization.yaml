@@ -1,0 +1,5 @@
+resources:
+  - notificaciones-crear-base.yaml
+
+components:
+  - ../../config

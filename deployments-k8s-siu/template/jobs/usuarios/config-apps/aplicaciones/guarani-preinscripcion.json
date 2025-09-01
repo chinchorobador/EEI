@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "guarani-preinscripcion",
+        "etiqueta": "SIU-Guaraní - Preinscripción",
+        "descripcion": "SIU-Guaraní: Módulo de gestión de preinscripciones",
+        "url": "https://uunn.local/guarani/preinscripcion/uunn/admin/acceso?auth=saml",
+        "version": "3.21.3",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://uunn.local/guarani/preinscripcion/uunn/admin/acceso": {
+            "appUniqueId": "guarani-preinscripcion",
+            "AssertionConsumerService": "https://uunn.local/guarani/preinscripcion/uunn/admin/acceso?auth=saml",
+            "SingleLogoutService": "https://uunn.local/guarani/preinscripcion/uunn/admin/acceso/logout"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "guarani.png"
+}

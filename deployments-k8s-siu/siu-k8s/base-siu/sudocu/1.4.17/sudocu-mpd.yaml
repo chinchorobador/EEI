@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sudocu-mpd
+spec:
+  selector:
+    matchLabels:
+      app: sudocu-mpd
+  template:
+    metadata:
+      labels:
+        app: sudocu-mpd
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: sudocu-config
+      containers:
+        - name: sudocu-mpd
+          image: ungs/sudocu-mpd:1.4.17
+          env:
+            - name: TZ
+              value: "America/Buenos_Aires"
+          volumeMounts:
+            - name: config
+              mountPath: /app/config.json
+              subPath: config-sudocu-mpd.json
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sudocu-mpd
+spec:
+  selector:
+    app: sudocu-mpd
+  ports:
+    - port: 3010
+      targetPort: 3010
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sudocu-mpd
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      rewrite ^(/sudocu/mpd)$ $1/ redirect;
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: uunn.local
+      http:
+        paths:
+          - path: /sudocu/mpd(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: sudocu-mpd
+                port:
+                  number: 3010
+  tls:
+    - hosts:
+        - uunn.local
+      secretName: uunn.local

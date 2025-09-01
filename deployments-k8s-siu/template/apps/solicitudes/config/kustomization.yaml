@@ -1,0 +1,11 @@
+kind: Component
+
+configMapGenerator:
+  - name: solicitudes.api.env
+    envs:
+      - solicitudes.api.env
+    behavior: merge
+  - name: solicitudes.env
+    envs:
+      - solicitudes.env
+    behavior: merge

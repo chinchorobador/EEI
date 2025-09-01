@@ -1,0 +1,14 @@
+resources:
+  - ../../../siu-k8s/base-eei/1.10.0/arai/usuarios
+
+patches:
+  - path: patches/pvc-storage-patch.yaml
+    target:
+      kind: PersistentVolumeClaim
+
+components:
+  - config
+  - secrets
+  - ../../secrets
+  - ../../common
+  - namespace

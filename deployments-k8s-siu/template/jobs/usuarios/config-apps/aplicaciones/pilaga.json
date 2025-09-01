@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "pilaga",
+        "etiqueta": "SIU-Pilagá",
+        "descripcion": "Módulo económico, presupuestario, financiero y contable",
+        "url": "https://uunn.local/pilaga",
+        "version": "3.15.3",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://uunn.local/pilaga/default-sp": {
+            "appUniqueId": "pilaga",
+            "AssertionConsumerService": "https://uunn.local/pilaga/?acs",
+            "SingleLogoutService": "https://uunn.local/pilaga/?sls"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "pilaga.png"
+}

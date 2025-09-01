@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proveedores-memcached
+spec:
+  selector:
+    matchLabels:
+      app: proveedores-memcached
+  template:
+    metadata:
+      labels:
+        app: proveedores-memcached
+    spec:
+      containers:
+        - name: memcached
+          image: bitnami/memcached:1.6.21
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proveedores-memcached
+spec:
+  selector:
+    app: proveedores-memcached
+  ports:
+    - port: 11211
+      targetPort: 11211

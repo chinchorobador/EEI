@@ -1,0 +1,12 @@
+kind: Component
+
+configMapGenerator:
+  - name: usuarios.env
+    envs:
+      - usuarios.env
+  - name: usuarios-api.env
+    envs:
+      - usuarios-api.env
+  - name: usuarios-idp.env
+    envs:
+      - usuarios-idp.env

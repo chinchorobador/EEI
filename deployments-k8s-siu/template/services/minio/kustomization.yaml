@@ -1,0 +1,16 @@
+resources:
+  - ../../../siu-k8s/base-dev/minio
+
+components:
+  - ../../common/pvc
+  - namespace
+
+secretGenerator:
+  - name: minio
+    envs:
+      - ../../secrets/minio-secrets.env
+
+patches:
+  - path: patches/pvc-storage-patch.yaml
+    target:
+      kind: PersistentVolumeClaim

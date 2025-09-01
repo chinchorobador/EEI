@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sudocu-login
+spec:
+  selector:
+    matchLabels:
+      app: sudocu-login
+  template:
+    metadata:
+      labels:
+        app: sudocu-login
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: sudocu-config
+      containers:
+        - name: sudocu-login
+          image: ungs/sudocu-login:1.4.21
+          env:
+            - name: TZ
+              value: "America/Buenos_Aires"
+          volumeMounts:
+            - name: config
+              mountPath: /app/config.json
+              subPath: config-sudocu-login.json
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sudocu-login
+spec:
+  selector:
+    app: sudocu-login
+  ports:
+    - port: 4000
+      targetPort: 4000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sudocu-login
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+     rewrite ^(/sudocu)$ $1/ redirect;
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: uunn.local
+      http:
+        paths:
+          - path: /sudocu(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: sudocu-login
+                port:
+                  number: 4000
+  tls:
+    - hosts:
+        - uunn.local
+      secretName: uunn.local

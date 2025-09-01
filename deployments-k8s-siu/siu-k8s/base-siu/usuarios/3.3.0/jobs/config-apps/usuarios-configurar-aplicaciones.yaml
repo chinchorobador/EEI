@@ -1,0 +1,93 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: usuarios-configurar-aplicaciones
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: hub.siu.edu.ar
+      volumes:
+        - name: secrets
+          secret:
+            secretName: usuarios
+            defaultMode: 0600
+        - name: aplicaciones
+          configMap:
+            name: aplicaciones
+        - name: iconos
+          configMap:
+            name: iconos
+      initContainers:
+        - name: verificar-usuarios-api
+          image: linuxserver/yq:3.2.3
+          envFrom:
+            - configMapRef:
+                name: usuarios.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              USER=$(jq .[0][0] < /var/secrets/API_BASIC_CLIENTES | tr -d '"')
+              PASS=$(jq .[0][1] < /var/secrets/API_BASIC_CLIENTES | tr -d '"')
+              until curl http://usuarios-api/api/v2/usuarios?limit=1 --user ${USER}:${PASS} --fail --silent -o /dev/null
+              do
+                echo "Esperando a que usuarios-api acepte conexiones"
+                sleep 5
+              done
+              echo "usuarios-api está listo"
+      containers:
+        - name: configurar-aplicaciones
+          image: stangirard/alpine-powerhouse
+          envFrom:
+            - configMapRef:
+                name: usuarios.env
+          volumeMounts:
+            - name: secrets
+              mountPath: /var/secrets
+            - name: aplicaciones
+              mountPath: /var/aplicaciones
+            - name: iconos
+              mountPath: /var/iconos
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export PGPASSWORD=$(cat ${DB_PASSWORD_FILE})
+              USER=$(jq .[0][0] < /var/secrets/API_BASIC_CLIENTES | tr -d '"')
+              PASS=$(jq .[0][1] < /var/secrets/API_BASIC_CLIENTES | tr -d '"')
+              API_URL=http://usuarios-api/api/v2
+              ls /var/aplicaciones/*.json | while read APP_CFG; do
+                  ##
+                  ## Agregar la aplicación
+                  ##
+                  APP_DATA=$(cat ${APP_CFG} | jq .aplicacion)
+                  APP_ID=$(cat ${APP_CFG} | jq .aplicacion.identificador | tr -d '"')
+                  curl -s -X POST ${API_URL}/aplicaciones \
+                      -d "${APP_DATA}" \
+                      --user ${USER}:${PASS}
+                  ##
+                  ## Actualizar el ícono
+                  ##
+                  ICONO=$(cat ${APP_CFG} | jq .icono | tr -d '"')
+                  curl -s -X PUT ${API_URL}/aplicaciones/${APP_ID}/icono \
+                      --data-binary "@/var/iconos/${ICONO}" \
+                      --user ${USER}:${PASS}
+                  ##
+                  ## Cargar los parámetros de la conexión SAML
+                  ##
+                  METADATA=$(cat ${APP_CFG} | jq '.config_sp | keys[]' | tr '"' "'")
+                  CFG_SP=$(cat ${APP_CFG} | jq .config_sp)
+                  SQL_CFG_SP="INSERT INTO ${DB_SCHEMA}.conector_saml (app_unique_id, metadata_key, config_sp, activo) VALUES ('"${APP_ID}"', ${METADATA}, '"${CFG_SP}"', 'true')"
+                  psql -h ${DB_HOST} -U ${DB_USERNAME} ${DB_DBNAME} -c "${SQL_CFG_SP}"
+                  ##
+                  ## Configurar el tipo de acceso
+                  ##
+                  ACCESO=$(cat ${APP_CFG} | jq .permite_acceso_sin_cuenta | tr -d '"')
+                  SQL_ACCESO="UPDATE ${DB_SCHEMA}.aplicaciones SET permite_acceso_sin_cuenta='"${ACCESO}"' WHERE app_unique_id='"${APP_ID}"'"
+                  psql -h ${DB_HOST} -U ${DB_USERNAME} ${DB_DBNAME} -c "${SQL_ACCESO}"
+              done
