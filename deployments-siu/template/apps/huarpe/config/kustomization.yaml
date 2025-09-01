@@ -1,0 +1,11 @@
+kind: Component
+
+configMapGenerator:
+  - name: huarpe.env
+    envs:
+      - huarpe.env
+    behavior: merge
+  - name: huarpe
+    files:
+      - ../../../common/certs/certificado_idp.crt
+    behavior: merge
