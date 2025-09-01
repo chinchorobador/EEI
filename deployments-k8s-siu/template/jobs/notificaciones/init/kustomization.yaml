@@ -1,8 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-siu/notificaciones/1.1.0/jobs/init
-
-components:
-  - ../../../apps/notificaciones/config
-  - ../../../apps/notificaciones/secrets
-  - ../../../common
-  - ../../../apps/notificaciones/namespace

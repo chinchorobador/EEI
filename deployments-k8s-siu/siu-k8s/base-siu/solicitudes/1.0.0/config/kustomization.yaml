@@ -1,9 +1,0 @@
-kind: Component
-
-configMapGenerator:
-  - name: solicitudes.api.env
-    envs:
-      - solicitudes.api.env
-  - name: solicitudes.env
-    envs:
-      - solicitudes.env

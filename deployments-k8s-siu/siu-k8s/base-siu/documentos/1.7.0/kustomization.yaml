@@ -1,6 +1,0 @@
-resources:
-  - docs-api.yaml
-  - docs-worker.yaml
-
-components:
-  - config

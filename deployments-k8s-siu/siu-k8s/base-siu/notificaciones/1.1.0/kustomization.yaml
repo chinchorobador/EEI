@@ -1,6 +1,0 @@
-resources:
-  - notificaciones-api.yaml
-  - notificaciones-worker.yaml
-
-components:
-  - config

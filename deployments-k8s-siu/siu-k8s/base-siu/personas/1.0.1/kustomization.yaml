@@ -1,5 +1,0 @@
-resources:
-  - personas-api.yaml
-
-components:
-  - config

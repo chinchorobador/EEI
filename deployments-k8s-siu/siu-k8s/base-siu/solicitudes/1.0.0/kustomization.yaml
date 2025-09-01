@@ -1,5 +1,0 @@
-resources:
-  - solicitudes-api.yaml
-
-components:
-  - config

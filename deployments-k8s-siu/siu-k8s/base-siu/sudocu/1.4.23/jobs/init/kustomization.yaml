@@ -1,5 +1,0 @@
-resources:
-  - sudocu-crear-base.yaml
-
-components:
-  - ../../config

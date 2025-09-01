@@ -1,7 +1,0 @@
-resources:
-  - repotes-api.yaml
-  - reportes-jasper.yaml
-  - reportes-data-pvc.yaml
-
-components:
-  - config

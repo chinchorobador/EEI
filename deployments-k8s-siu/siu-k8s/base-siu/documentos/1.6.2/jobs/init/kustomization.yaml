@@ -1,5 +1,0 @@
-resources:
-  - docs-crear-base.yaml
-
-components:
-  - ../../config

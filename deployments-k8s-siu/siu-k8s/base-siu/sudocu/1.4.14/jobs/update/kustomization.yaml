@@ -1,5 +1,0 @@
-resources:
-  - sudocu-actualizar-base.yaml
-
-components:
-  - ../../config

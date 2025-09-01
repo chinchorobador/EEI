@@ -1,9 +1,0 @@
-kind: Component
-
-configMapGenerator:
-  - name: personas.env
-    envs:
-      - personas.env
-  - name: personas-api.env
-    envs:
-      - personas-api.env

@@ -1,7 +1,0 @@
-resources:
-  - proveedores-api.yaml
-  - proveedores-portal.yaml
-  - proveedores-memcached.yaml
-
-components:
-  - config

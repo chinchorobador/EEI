@@ -1,5 +1,0 @@
-resources:
-  - solicitudes-crear-base.yaml
-
-components:
-  - ../../config

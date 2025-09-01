@@ -1,9 +1,0 @@
-resources:
-  - ../../../../siu-k8s/base-eei/1.10.0/arai/usuarios/jobs/config-apps
-
-components:
-  - ../../../apps/usuarios/config
-  - ../../../apps/usuarios/secrets
-  - aplicaciones
-  - ../../../common
-  - ../../../apps/usuarios/namespace

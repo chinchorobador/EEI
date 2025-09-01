@@ -1,5 +1,0 @@
-resources:
-  - proveedores-crear-base.yaml
-
-components:
-  - ../../config

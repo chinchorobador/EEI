@@ -1,5 +1,0 @@
-resources:
-  - docs-stamper.yaml
-
-components:
-  - config
