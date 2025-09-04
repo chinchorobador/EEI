@@ -1,0 +1,27 @@
+kind: Component
+
+configMapGenerator:
+  - name: aplicaciones
+    files:
+      - diaguita.json
+      - guarani-autogestion.json
+      - guarani-gestion.json
+      - guarani-preinscripcion.json
+      - huarpe.json
+      - kolla.json
+      - mapuche.json
+      - pilaga.json
+      - usuarios.json
+      - sudocu.json
+      - proveedores.json
+  - name: iconos
+    files:
+      - iconos/diaguita.png
+      - iconos/guarani.png
+      - iconos/huarpe.png
+      - iconos/kolla.png
+      - iconos/mapuche.png
+      - iconos/pilaga.png
+      - iconos/usuarios.png
+      - iconos/sudocu.png
+      - iconos/proveedores.png

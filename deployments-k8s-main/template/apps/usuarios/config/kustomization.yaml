@@ -1,0 +1,23 @@
+kind: Component
+
+configMapGenerator:
+  - name: usuarios.env
+    envs:
+      - usuarios.env
+    behavior: merge
+  - name: usuarios-api.env
+    envs:
+      - usuarios-api.env
+    behavior: merge
+  - name: usuarios-idp.env
+    envs:
+      - usuarios-idp.env
+    behavior: merge
+  - name: usuarios
+    files:
+      - ../../../common/certs/certificado_idp.crt
+    behavior: create
+  - name: usuarios-idp-oidc-cert
+    files:
+      - ../../../common/certs/oidc_module.crt
+    behavior: create

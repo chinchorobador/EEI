@@ -1,0 +1,12 @@
+kind: Component
+
+configMapGenerator:
+  - name: docs-stamper.env
+    envs:
+      - docs-stamper.env
+    behavior: merge
+  - name: docs-stamper
+    files:
+      - application.properties
+      - firma.png
+    behavior: merge

@@ -1,0 +1,51 @@
+kind: Component
+
+patches:
+  - target:
+      kind: Ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: uunn.local
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: uunn.local
+      - op: replace
+        path: /spec/tls/0/secretName
+        value: uunn.local
+      - op: add
+        path: /metadata/annotations/cert-manager.io~1cluster-issuer
+        value: letsencrypt
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1enable-modsecurity
+        value: true
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1modsecurity-snippet
+        value: |
+          SecRuleEngine On
+          SecRequestBodyAccess On
+          SecRule REQUEST_URI "@beginsWith /usuarios/aplicacion.php" "id:1001,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/usuarios/" "id:1002,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/auth/areaDefault" "id:1003,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/v1/documento" "id:1004,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /avatar/upload" "id:1005,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/auth/saml/callback" "id:1006,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/tipos_documento/" "id:1007,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/v1/authorization/authorize" "id:1008,phase:1,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/documentos/anular" "id:1009,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/areas/" "id:1010,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/archivos/principal" "id:1011,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/numeradores/" "id:1012,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/mpc/contenedores/" "id:1013,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /sudocu/api/v1/relation/" "id:1014,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
+          SecRule REQUEST_URI "@beginsWith /usuarios/" "id:1015,phase:2,pass,nolog,ctl:ruleRemoveById=949110"
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1proxy-body-size
+        value: "10m"
+  - target:
+      kind: Ingress
+      name: docs-backend|usuarios-api|personas-api
+    patch: |-
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1whitelist-source-range
+        value: "127.0.0.1/32"

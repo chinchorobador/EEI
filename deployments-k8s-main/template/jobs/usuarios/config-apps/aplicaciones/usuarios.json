@@ -1,0 +1,19 @@
+{
+    "aplicacion": {
+        "identificador": "idm-core",
+        "etiqueta": "ARAI-Usuarios",
+        "descripcion": "Aplicación de gestión de identidad centralizada",
+        "url": "https://uunn.local/usuarios",
+        "version": "3.2.3",
+        "inactiva": "0"
+    },
+    "config_sp": {
+        "https://uunn.local/usuarios/default-sp": {
+            "appUniqueId": "idm-core",
+            "AssertionConsumerService": "https://uunn.local/usuarios/?acs",
+            "SingleLogoutService": "https://uunn.local/usuarios/?sls"
+        }
+    },
+    "permite_acceso_sin_cuenta": "false",
+    "icono": "usuarios.png"
+}

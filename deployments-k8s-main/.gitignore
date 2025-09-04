@@ -1,0 +1,5 @@
+**/scripts-init/registry-secrets.json
+**/secrets/**
+!**/secrets/kustomization.yaml
+!template/secrets/**
+!template-vault/secrets/**
